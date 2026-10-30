@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="meta-title">Gyani Tea — Pure Tea, Natural Rituals</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================
+       DESIGN SYSTEM & RESET
+       ========================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary-dark: #0A1812;      /* Deep Tea Green / Obsidian */
+      --primary-sage: #8FA89B;      /* Light Sage */
+      --accent-terracotta: #C86C3E; /* Warm Amber / Terracotta */
+      --accent-gold: #E5B382;
+      --accent-whatsapp: #25D366;   /* WhatsApp Brand Green */
+      --text-main: #F4F6F5;
+      --text-muted: #A3B5AC;
+      --text-light: #7E9288;
+      --border-glass: rgba(212, 163, 115, 0.2);
+      --bg-glass: rgba(12, 24, 18, 0.65);
+      --bg-glass-card: rgba(15, 30, 23, 0.75);
+      --card-blur: 16px;
+      
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-script: 'Caveat', cursive;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+
+      --container-max: 1240px;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    html {
+      background-color: #000000;
+      color: var(--text-main);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-main);
+      background-color: #000000;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 600vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Fixed Canvas Video Animation Layer */
+    #animation-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      pointer-events: none;
+      z-index: 0;
+      background-color: #000000;
+      will-change: transform;
+    }
+
+    /* Page Content Layer above canvas */
+    .page-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    /* Common Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.8rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      text-transform: capitalize;
+    }
+
+    .btn-terracotta {
+      background-color: var(--accent-terracotta);
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(200, 108, 62, 0.35);
+    }
+    .btn-terracotta:hover {
+      background-color: #d87747;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(200, 108, 62, 0.5);
+    }
+
+    .btn-whatsapp {
+      background-color: #128C7E;
+      color: #ffffff;
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.25);
+    }
+    .btn-whatsapp:hover {
+      background-color: #25D366;
+      color: #000000;
+      font-weight: 700;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45);
+    }
+
+    .btn-dark {
+      background-color: #143527;
+      color: #ffffff;
+      border: 1px solid rgba(143, 168, 155, 0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+    .btn-dark:hover {
+      background-color: #1c4a37;
+      transform: translateY(-2px);
+      border-color: var(--primary-sage);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border-glass);
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent-gold);
+      background-color: rgba(212, 163, 115, 0.15);
+      color: #ffffff;
+    }
+
+    /* WhatsApp Icon SVG helper */
+    .wa-icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================
+       HEADER & NAVIGATION
+       ========================================================== */
+    .header {
+      padding: 1.2rem 0;
+      position: sticky;
+      top: 0;
+      background: rgba(10, 20, 15, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-main);
+      letter-spacing: 0.02em;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-gold);
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 0.18em;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .brand-logo svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--accent-gold);
+    }
+
+    .brand-logo span.tagline-sub {
+      display: block;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      color: var(--primary-sage);
+      font-weight: 600;
+    }
+
+    /* ==========================================================
+       HERO SECTION
+       ========================================================== */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 6rem 0 5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 4rem;
+      width: 100%;
+    }
+
+    .hero-left-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .hero-title {
+      font-size: clamp(3.4rem, 7.5vw, 6.2rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+      margin-bottom: 1.8rem;
+      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-tagline {
+      font-size: 1.22rem;
+      color: var(--text-muted);
+      max-width: 440px;
+      margin-bottom: 2.4rem;
+      line-height: 1.5;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-side-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-top: 3rem;
+      opacity: 0.85;
+    }
+
+    /* Hero Right Glass Showcase */
+    .hero-showcase-box {
+      padding: 2.5rem;
+      position: relative;
+      border: 1px solid var(--border-glass);
+      background: rgba(15, 30, 23, 0.45);
+      backdrop-filter: blur(var(--card-blur));
+      -webkit-backdrop-filter: blur(var(--card-blur));
+      border-radius: var(--radius-md);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-badge-note {
+      position: absolute;
+      right: -15px;
+      top: -15px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      background: var(--accent-terracotta);
+      color: #ffffff;
+      font-weight: 700;
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 6px 16px rgba(200, 108, 62, 0.4);
+    }
+
+    .hero-showcase-stat {
+      font-family: var(--font-serif);
+      font-size: 2.8rem;
+      color: var(--accent-gold);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-showcase-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+
+    /* Vertical side decorative labels */
+    .vertical-anchor-left {
+      position: fixed;
+      left: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.5;
+    }
+
+    .vertical-anchor-right {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.5;
+    }
+
+    /* ==========================================================
+       NATURAL BENEFITS SECTION
+       ========================================================== */
+    .benefits-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .benefits-content-box {
+      padding: 3.5rem;
+      border-radius: var(--radius-md);
+      background: rgba(10, 22, 16, 0.78);
+      backdrop-filter: blur(var(--card-blur));
+      -webkit-backdrop-filter: blur(var(--card-blur));
+      border: 1px solid var(--border-glass);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+      width: 100%;
+    }
+
+    .benefits-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .benefits-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 5vw, 3.8rem);
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+    }
+
+    .benefits-title em {
+      font-style: italic;
+      color: var(--accent-gold);
+    }
+
+    .benefits-intro {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 580px;
+      white-space: pre-line;
+    }
+
+    .script-note {
+      font-family: var(--font-script);
+      font-size: 2.2rem;
+      color: var(--accent-gold);
+      line-height: 1.1;
+      text-align: right;
+    }
+
+    .benefits-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .benefit-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(212, 163, 115, 0.12);
+      transition: var(--transition);
+    }
+
+    .benefit-item:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-gold);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .benefit-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 1px solid var(--border-glass);
+      background: rgba(212, 163, 115, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.4rem;
+      color: var(--accent-gold);
+    }
+
+    .benefit-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .benefit-item h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+    }
+
+    .benefit-item p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================
+       ORGANIC / LOOSE LEAF HERO CARD SECTION
+       ========================================================== */
+    .loose-leaf-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 0;
+      position: relative;
+      text-align: center;
+    }
+
+    .giant-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(6rem, 18vw, 16rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: rgba(143, 168, 155, 0.08);
+      line-height: 0.8;
+      text-transform: uppercase;
+      user-select: none;
+      pointer-events: none;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .loose-leaf-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      align-items: center;
+      gap: 3rem;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .product-hero-info {
+      text-align: left;
+      padding: 2.5rem;
+      border-radius: var(--radius-md);
+      background: rgba(10, 22, 16, 0.75);
+      backdrop-filter: blur(var(--card-blur));
+      border: 1px solid var(--border-glass);
+    }
+
+    .product-hero-info h3 {
+      font-family: var(--font-serif);
+      font-size: 2.8rem;
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 0.4rem;
+    }
+
+    .product-hero-info .caps-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 1.4rem;
+      display: block;
+    }
+
+    .product-price {
+      font-family: var(--font-display);
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 1.6rem;
+    }
+
+    .product-center-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mockup-pouch {
+      width: 280px;
+      height: 360px;
+      background: linear-gradient(145deg, #163628, #0e241b);
+      border: 1px solid rgba(212, 163, 115, 0.3);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 1.5rem 1.5rem;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+      transition: var(--transition);
+    }
+
+    .mockup-pouch:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--accent-gold);
+    }
+
+    .mockup-pouch::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      width: 70%;
+      height: 4px;
+      background: rgba(212, 163, 115, 0.35);
+      border-radius: 4px;
+    }
+
+    .pouch-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .pouch-badge svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--accent-gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .pouch-brand {
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: #ffffff;
+    }
+
+    .pouch-sub {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      color: var(--primary-sage);
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    .pouch-leaf-window {
+      width: 80%;
+      height: 70px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px dashed rgba(212, 163, 115, 0.4);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    .pouch-footer {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      font-weight: 700;
+    }
+
+    .product-details-aside {
+      text-align: right;
+      padding: 2.5rem;
+      border-radius: var(--radius-md);
+      background: rgba(10, 22, 16, 0.75);
+      backdrop-filter: blur(var(--card-blur));
+      border: 1px solid var(--border-glass);
+    }
+
+    .product-details-aside h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+    }
+
+    .product-details-aside p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================
+       SIGNATURE BLENDS SECTION
+       ========================================================== */
+    .blends-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .blends-wrapper {
+      width: 100%;
+      padding: 3.5rem;
+      border-radius: var(--radius-md);
+      background: rgba(10, 22, 16, 0.78);
+      backdrop-filter: blur(var(--card-blur));
+      -webkit-backdrop-filter: blur(var(--card-blur));
+      border: 1px solid var(--border-glass);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .blends-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .blends-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 5vw, 3.8rem);
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+    }
+
+    .blends-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 480px;
+    }
+
+    .blends-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.2rem;
+    }
+
+    .blend-card {
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 163, 115, 0.15);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .blend-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--accent-gold);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    }
+
+    .blend-badge-pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-pill);
+      margin-bottom: 1.6rem;
+    }
+
+    .blend-badge-green {
+      background: rgba(143, 168, 155, 0.2);
+      color: #A4C4B5;
+      border: 1px solid rgba(143, 168, 155, 0.35);
+    }
+
+    .blend-badge-mint {
+      background: rgba(20, 53, 39, 0.6);
+      color: #7AD1A9;
+      border: 1px solid rgba(122, 209, 169, 0.35);
+    }
+
+    .blend-badge-chai {
+      background: rgba(200, 108, 62, 0.25);
+      color: #EFA67F;
+      border: 1px solid rgba(200, 108, 62, 0.4);
+    }
+
+    .blend-name {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+    }
+
+    .blend-notes {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.8rem;
+    }
+
+    .blend-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: auto;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .blend-price {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+
+    /* ==========================================================
+       CREATE YOUR BLEND SECTION
+       ========================================================== */
+    .create-blend-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .create-blend-card {
+      width: 100%;
+      padding: 4rem;
+      border-radius: var(--radius-md);
+      background: rgba(10, 22, 16, 0.82);
+      backdrop-filter: blur(var(--card-blur));
+      -webkit-backdrop-filter: blur(var(--card-blur));
+      border: 1px solid var(--border-glass);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    .create-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .create-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+    }
+
+    .create-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+    }
+
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .step-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.4rem;
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(212, 163, 115, 0.12);
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent-terracotta);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 6px 16px rgba(200, 108, 62, 0.35);
+    }
+
+    .step-content h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.4rem;
+    }
+
+    .step-content p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .create-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    /* ==========================================================
+       FOOTER
+       ========================================================== */
+    .footer {
+      padding: 3rem 0;
+      background: rgba(5, 12, 9, 0.95);
+      border-top: 1px solid var(--border-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      position: relative;
+      z-index: 20;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-left {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--accent-gold);
+      font-style: italic;
+    }
+
+    .footer-center {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.18em;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .footer-center svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--accent-gold);
+    }
+
+    .footer-right {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    /* Floating Admin Edit Button (positioned bottom-left so WhatsApp catalog bubble stays in bottom-right) */
+    .floating-admin-btn {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      background: rgba(14, 31, 23, 0.9);
+      color: var(--accent-gold);
+      border: 1px solid var(--accent-gold);
+      backdrop-filter: blur(12px);
+      padding: 0.75rem 1.4rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      z-index: 999;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .floating-admin-btn:hover {
+      background: var(--accent-terracotta);
+      color: #ffffff;
+      border-color: var(--accent-terracotta);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(200, 108, 62, 0.4);
+    }
+
+    /* ==========================================================
+       7. STORE LOCATION, CONTACT & SOCIAL MEDIA SECTION
+       ========================================================== */
+    .store-contact-section {
+      padding: 5rem 0 3.5rem;
+      background: rgba(6, 14, 10, 0.96);
+      backdrop-filter: blur(var(--card-blur));
+      -webkit-backdrop-filter: blur(var(--card-blur));
+      border-top: 1px solid var(--border-glass);
+      position: relative;
+      z-index: 20;
+    }
+
+    .store-contact-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1.1fr;
+      gap: 3.5rem;
+      align-items: flex-start;
+      margin-bottom: 3.5rem;
+    }
+
+    .store-brand-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .store-brand-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: #ffffff;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* Address Card matching the reference design */
+    .store-address-card {
+      background: rgba(18, 30, 24, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 16px;
+      padding: 1.8rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .store-address-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .store-pin-icon {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: #ea1d24;
+      stroke-width: 2;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .store-address-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #d1d5db;
+      white-space: pre-line;
+    }
+
+    .store-card-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      margin: 1.4rem 0 1.2rem;
+    }
+
+    .store-timing-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: rgba(37, 211, 102, 0.12);
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      color: #25D366;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .store-timing-pill svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    /* Action Buttons: Call Us & Get Directions */
+    .store-action-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-store-call {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #1e2621;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 0.75rem 1.6rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .btn-store-call:hover {
+      background: #28332d;
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .btn-store-directions {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #ea1d24;
+      border: none;
+      color: #ffffff;
+      padding: 0.75rem 1.8rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: 0 6px 20px rgba(234, 29, 36, 0.35);
+    }
+
+    .btn-store-directions:hover {
+      background: #ff2b33;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(234, 29, 36, 0.5);
+    }
+
+    /* Links Columns: Collections & Services */
+    .footer-col-title {
+      font-size: 0.82rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      font-weight: 700;
+      margin-bottom: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer-col-title::before,
+    .footer-col-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      max-width: 25px;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .footer-link-list a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: var(--transition);
+      display: inline-block;
+    }
+
+    .footer-link-list a:hover {
+      color: var(--accent-gold);
+      transform: translateX(4px);
+    }
+
+    /* Social Media Options: Instagram & WhatsApp */
+    .social-connect-box {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .social-connect-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      gap: 0.6rem;
+      transition: var(--transition);
+    }
+
+    .social-connect-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .social-icon-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transition: var(--transition);
+    }
+
+    .social-icon-btn.whatsapp-icon {
+      background: #25D366;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+    }
+
+    .social-icon-btn.whatsapp-icon:hover {
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.55);
+      transform: scale(1.08);
+    }
+
+    .social-icon-btn.instagram-icon {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      box-shadow: 0 8px 20px rgba(214, 36, 159, 0.35);
+    }
+
+    .social-icon-btn.instagram-icon:hover {
+      box-shadow: 0 12px 28px rgba(214, 36, 159, 0.55);
+      transform: scale(1.08);
+    }
+
+    .social-icon-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: #ffffff;
+    }
+
+    .social-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #94a3b8;
+      transition: var(--transition);
+    }
+
+    .social-connect-item:hover .social-label {
+      color: #ffffff;
+    }
+
+    /* Sub-footer copyright divider */
+    .store-sub-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 2rem;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.88rem;
+    }
+
+    /* Floating WhatsApp Catalogue Widget (bottom-right) */
+    .floating-wa-widget {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 998;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+    }
+
+    .wa-bubble-tooltip {
+      background: rgba(18, 28, 22, 0.95);
+      border: 1px solid rgba(37, 211, 102, 0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 0.55rem 0.95rem;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 0.84rem;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      position: relative;
+      animation: floatPulse 3s ease-in-out infinite;
+      cursor: pointer;
+    }
+
+    .wa-bubble-tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      right: 22px;
+      width: 10px;
+      height: 10px;
+      background: rgba(18, 28, 22, 0.95);
+      border-right: 1px solid rgba(37, 211, 102, 0.45);
+      border-bottom: 1px solid rgba(37, 211, 102, 0.45);
+      transform: rotate(45deg);
+    }
+
+    .wa-bubble-close {
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: 1rem;
+      line-height: 1;
+      padding-left: 0.3rem;
+    }
+
+    .wa-bubble-close:hover {
+      color: #ffffff;
+    }
+
+    .floating-wa-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .floating-wa-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 14px 38px rgba(37, 211, 102, 0.7);
+    }
+
+    .floating-wa-btn svg {
+      width: 32px;
+      height: 32px;
+      fill: #ffffff;
+    }
+
+    @keyframes floatPulse {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .hero-grid, .benefits-list, .loose-leaf-inner, .blends-grid, .steps-row {
+        grid-template-columns: 1fr;
+      }
+      .store-contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .vertical-anchor-left, .vertical-anchor-right {
+        display: none;
+      }
+      .mockup-pouch {
+        margin: 2rem auto;
+      }
+      .floating-admin-btn {
+        bottom: 5.5rem;
+        left: 1rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.78rem;
+      }
+      .floating-wa-widget {
+        bottom: 1.5rem;
+        right: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fixed Scroll-Based Video Animation Canvas -->
+  <canvas id="animation-canvas"></canvas>
+
+  <!-- Decorative vertical brand labels -->
+  <div class="vertical-anchor-left" id="el-side-left">Tea For A Brighter You</div>
+  <div class="vertical-anchor-right" id="el-side-right">Sip &middot; Nourish &middot; Repeat</div>
+
+  <!-- Floating Admin Studio Pill -->
+  <a href="/admin" class="floating-admin-btn" title="Open Admin Studio to edit website content">
+    <span>⚙️</span> Edit Website
+  </a>
+
+  <!-- Foreground Interactive Webpage -->
+  <div class="page-wrapper">
+    
+    <!-- 1. HEADER & NAVIGATION -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav-wrapper">
+          <ul class="nav-links">
+            <li><a href="#benefits">Benefits</a></li>
+            <li><a href="#blends">Blends</a></li>
+            <li><a href="#create">Create Yours</a></li>
+            <li><a href="#loose-leaf">Collection</a></li>
+            <li><a href="#store-contact">Store &amp; Contact</a></li>
+          </ul>
+
+          <div class="brand-logo">
+            <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>
+            <div>
+              <span id="el-brand-name">GYANI TEA</span>
+              <span class="tagline-sub" id="el-brand-tagline">Pure Tea, and chai masala</span>
+            </div>
+          </div>
+
+          <button onclick="openWhatsAppCatalogue()" class="btn btn-whatsapp" id="el-header-cta">
+            <svg class="wa-icon" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            <span id="el-header-cta-text">WhatsApp Catalogue &rarr;</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-text-content">
+            <span class="hero-left-eyebrow" id="el-hero-eyebrow">A More Natural You</span>
+            <h1 class="hero-title" id="el-hero-title">PURE<br>TEA AND CHAI MASALA</h1>
+            <p class="hero-tagline" id="el-hero-tagline">Natural leaves, simple rituals, better daily moments. Grown with reverence on sacred mountain slopes.</p>
+            <div class="hero-actions">
+              <button onclick="openWhatsAppOrder('Gyani Tea & Chai Masala', '30% OFF Special Offer')" class="btn btn-whatsapp" id="el-hero-cta1">
+                <svg class="wa-icon" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                <span id="el-hero-cta1-text">Order on WhatsApp &rarr;</span>
+              </button>
+              <a href="#benefits" class="btn btn-outline" id="el-hero-cta2">Our Rituals</a>
+            </div>
+            <div class="hero-side-label" id="el-hero-sidenote">&bull; Scroll down to witness the craft of every drop</div>
+          </div>
+
+          <div class="hero-showcase-box">
+            <div class="hero-badge-note" id="el-hero-badge">CHAI MASALA AND CHAI PATTI</div>
+            <div class="hero-showcase-stat" id="el-hero-stat">30%OFF</div>
+            <p class="hero-showcase-desc" id="el-hero-desc">GYANI TEA
+Rishte Apno Se
+
+Rich in aroma, bold in taste, and perfect for every moment. Gyani Tea brings you a refreshing cup of chai that makes every sip special.
+
+A Perfect Cup, Every Time!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. NATURAL BENEFITS SECTION -->
+    <section class="benefits-section" id="benefits">
+      <div class="container">
+        <div class="benefits-content-box">
+          <div class="benefits-header">
+            <div>
+              <h2 class="benefits-title" id="el-benefits-heading">Natural <em id="el-benefits-italic">Benefits</em></h2>
+              <p class="benefits-intro" id="el-benefits-intro">Experience the comforting goodness of Gyani Tea, crafted to bring rich flavour, refreshing aroma, and warmth to your everyday moments.</p>
+            </div>
+            <div class="script-note" id="el-benefits-script">
+              Plants &middot; People &middot; Better Days
+            </div>
+          </div>
+
+          <div class="benefits-list" id="el-benefits-list">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ORGANIC / LOOSE LEAF HERO CARD SECTION -->
+    <section class="loose-leaf-section" id="loose-leaf">
+      <div class="giant-watermark" id="el-col-watermark">ORGANIC</div>
+      <div class="container">
+        <div class="loose-leaf-inner">
+          
+          <div class="product-hero-info">
+            <span class="caps-tag" id="el-col-tag">Pure Ingredients &bull; Exceptional Flavour</span>
+            <h3 id="el-col-title">Loose Leaf Collection</h3>
+            <div class="product-price" id="el-col-price">&#8377;499</div>
+            <button onclick="orderCollection()" class="btn btn-whatsapp" id="el-col-cta">
+              <svg class="wa-icon" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+              <span id="el-col-cta-text">Buy on WhatsApp &rarr;</span>
+            </button>
+          </div>
+
+          <div class="product-center-display">
+            <div class="mockup-pouch">
+              <div class="pouch-badge">
+                <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>
+                <div class="pouch-brand" id="el-pouch-brand">GYANI TEA</div>
+                <div class="pouch-sub" id="el-pouch-sub">Organic Loose Leaf Reserve</div>
+              </div>
+              <div class="pouch-leaf-window">
+                <span id="el-pouch-window">&bull; WHOLE LEAF HARVEST &bull;</span>
+              </div>
+              <div class="pouch-footer" id="el-pouch-footer">Good Tea &bull; Brighter Days &bull; 100g</div>
+            </div>
+          </div>
+
+          <div class="product-details-aside">
+            <h4 id="el-aside-title">From Nature to Your Cup</h4>
+            <p id="el-aside-desc">Whole-leaf integrity preserves essential oils and delicate aromas that commercial tea dust destroys.</p>
+            <div style="margin-top: 1.5rem;">
+              <span id="el-aside-tag" style="font-size: 0.78rem; letter-spacing: 0.15em; color: var(--accent-gold); text-transform: uppercase; font-weight: 700;">Real Tea &bull; Real Good Living</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. SIGNATURE BLENDS SECTION -->
+    <section class="blends-section" id="blends">
+      <div class="container">
+        <div class="blends-wrapper">
+          <div class="blends-top-bar">
+            <div>
+              <h2 class="blends-title" id="el-blends-title">Signature Blends</h2>
+              <p class="blends-subtitle" id="el-blends-sub">Thoughtfully crafted. Naturally better. Discover our most loved blends made with sun-dried herbs and wild mountain spices.</p>
+            </div>
+            <button onclick="openWhatsAppCatalogue()" class="btn btn-whatsapp" id="el-blends-cta">
+              <svg class="wa-icon" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+              <span id="el-blends-cta-text">WhatsApp Catalogue &rarr;</span>
+            </button>
+          </div>
+
+          <div class="blends-grid" id="el-blends-grid">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CREATE YOUR BLEND SECTION -->
+    <section class="create-blend-section" id="create">
+      <div class="container">
+        <div class="create-blend-card">
+          <div class="create-header">
+            <div>
+              <h2 class="create-title" id="el-create-title">Create Your Blend</h2>
+              <p class="create-subtitle" id="el-create-sub">Your tea. Your way. A customized cup as unique and personal as your morning ritual.</p>
+            </div>
+            <div class="script-note" id="el-create-script">
+              Good Things Steep Here
+            </div>
+          </div>
+
+          <div class="steps-row" id="el-create-steps">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <div class="create-action-bar">
+            <span id="el-create-bottom" style="color: var(--text-muted); font-size: 0.95rem;">Curated by Master Tea Sommeliers &bull; Free Shipping across India on orders above &#8377;499</span>
+            <button onclick="openWhatsAppOrder('Custom Handcrafted Tea Blend', 'Custom Recipe')" class="btn btn-whatsapp" id="el-create-btn" style="padding: 1rem 2.4rem; font-size: 1rem;">
+              <svg class="wa-icon" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+              <span id="el-create-btn-text">Order Custom Blend on WhatsApp &rarr;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. STORE LOCATION, CONTACT & SOCIAL MEDIA SECTION (Matching Reference) -->
+    <section class="store-contact-section" id="store-contact">
+      <div class="container">
+        <div class="store-contact-grid">
+          
+          <!-- Column 1: Store Brand & Address Card -->
+          <div class="store-brand-col">
+            <div class="store-brand-title">
+              <span id="el-store-brand">GYANI TEA</span>
+            </div>
+
+            <!-- Address Card matching screenshot -->
+            <div class="store-address-card">
+              <div class="store-address-row">
+                <svg class="store-pin-icon" viewBox="0 0 24 24">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                  <circle cx="12" cy="9" r="2.5" fill="#ea1d24"/>
+                </svg>
+                <div class="store-address-text" id="el-store-address">B 915, Near Mohalla Clinic,
+GD Colony, Mayur Vihar Ph-3,
+Delhi - 110096</div>
+              </div>
+
+              <div class="store-card-divider"></div>
+
+              <div class="store-timing-pill">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span id="el-store-timing">Open 7 Days: 7 AM - 11 PM</span>
+              </div>
+            </div>
+
+            <!-- Action buttons: Call Us & Get Directions -->
+            <div class="store-action-buttons">
+              <a href="tel:+919876543210" class="btn-store-call" id="el-store-phone-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span>Call Us</span>
+              </a>
+              <a href="https://maps.google.com/?q=Mayur+Vihar+Phase+3+Delhi" target="_blank" rel="noopener noreferrer" class="btn-store-directions" id="el-store-maps-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                <span>Get Directions</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: COLLECTIONS -->
+          <div>
+            <div class="footer-col-title">COLLECTIONS</div>
+            <ul class="footer-link-list">
+              <li><a href="#loose-leaf">Chai Masala</a></li>
+              <li><a href="#loose-leaf">Loose Leaf Blends</a></li>
+              <li><a href="#blends">Organic Green Tea</a></li>
+              <li><a href="#blends">Royal CTC Chai</a></li>
+              <li><a href="#create">Custom Blends</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: SERVICES -->
+          <div>
+            <div class="footer-col-title">SERVICES</div>
+            <ul class="footer-link-list">
+              <li><a href="javascript:void(0)" onclick="openWhatsAppCatalogue()">WhatsApp Catalogue</a></li>
+              <li><a href="javascript:void(0)" onclick="openWhatsAppOrder('Bulk &amp; Cafe Supply Inquiry', 'Bulk Inquiry')">Bulk &amp; Cafe Supply</a></li>
+              <li><a href="javascript:void(0)" onclick="openWhatsAppOrder('Home Delivery Order', 'Delivery Inquiry')">Home Delivery</a></li>
+              <li><a href="javascript:void(0)" onclick="openWhatsAppOrder('Fresh Batch Order', 'Fresh Roasting Inquiry')">Fresh Batch Roasting</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: SOCIAL MEDIA & QUICK CHAT -->
+          <div>
+            <div class="footer-col-title">CONNECT</div>
+            <div class="social-connect-box">
+              <!-- WhatsApp Quick Chat -->
+              <a href="javascript:void(0)" onclick="openWhatsAppCatalogue()" class="social-connect-item" title="Quick Chat on WhatsApp">
+                <div class="social-icon-btn whatsapp-icon">
+                  <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                </div>
+                <span class="social-label" id="el-wa-quickchat-label">Quick Chat</span>
+              </a>
+
+              <!-- Instagram Social Option -->
+              <a href="https://instagram.com/gyani_tea" target="_blank" rel="noopener noreferrer" class="social-connect-item" id="el-store-instagram-link" title="Follow Gyani Tea on Instagram">
+                <div class="social-icon-btn instagram-icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </div>
+                <span class="social-label" id="el-store-instagram-handle">@gyanitea</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Serving notice matching the screenshot footer -->
+        <div class="store-sub-footer" id="el-store-serving">
+          &copy; 2026 Gyani Tea. Proudly serving tea lovers across GD Colony &amp; India.
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. MINIMAL BRAND FOOTER -->
+    <footer class="footer" id="footer">
+      <div class="container">
+        <div class="footer-inner">
+          <div class="footer-left" id="el-footer-left">Brew better moments.</div>
+          <div class="footer-center">
+            <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>
+            <span id="el-footer-brand">GYANI TEA</span>
+          </div>
+          <div class="footer-right" id="el-footer-right">Natural Tea For A Brighter Tomorrow &copy; 2026</div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Dynamic Content Loader & WhatsApp Direct Ordering -->
+  <script>
+    let activeLerpFactor = 0.15;
+    let siteContent = null;
+
+    // Direct WhatsApp Ordering Handler: No login, no payment gateway barrier
+    window.openWhatsAppOrder = function(productName, price) {
+      const wa = siteContent?.whatsapp || {};
+      let phone = (wa.phoneNumber || '+919876543210').replace(/[^0-9]/g, '');
+      if (phone.length === 10) phone = '91' + phone;
+
+      const template = wa.greetingTemplate || "Hello Gyani Tea! I would like to order *{product}* ({price}). Please share delivery and order details.";
+      const text = template
+        .replace('{product}', productName || 'Gyani Tea Collection')
+        .replace('{price}', price || '');
+
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    };
+
+    window.openWhatsAppCatalogue = function() {
+      const wa = siteContent?.whatsapp || {};
+      if (wa.catalogueUrl && wa.catalogueUrl.trim() !== '') {
+        window.open(wa.catalogueUrl, '_blank');
+      } else {
+        openWhatsAppOrder('Gyani Tea Catalogue', 'Full Menu');
+      }
+    };
+
+    window.orderCollection = function() {
+      const title = document.getElementById('el-col-title').textContent || 'Loose Leaf Collection';
+      const price = document.getElementById('el-col-price').textContent || '₹499';
+      openWhatsAppOrder(title, price);
+    };
+
+    async function loadSiteContent() {
+      try {
+        const res = await fetch('/api/content');
+        if (!res.ok) return;
+        siteContent = await res.json();
+        applySiteContent(siteContent);
+      } catch (e) {
+        console.log('Using embedded default content');
+      }
+    }
+
+    function applySiteContent(data) {
+      if (!data) return;
+
+      // Brand
+      if (data.brand) {
+        if (data.brand.name) {
+          document.getElementById('el-brand-name').textContent = data.brand.name;
+          document.getElementById('meta-title').textContent = `${data.brand.name} — ${data.brand.tagline || 'Pure Tea'}`;
+        }
+        if (data.brand.tagline) document.getElementById('el-brand-tagline').textContent = data.brand.tagline;
+        if (data.brand.sideLeft) document.getElementById('el-side-left').textContent = data.brand.sideLeft;
+        if (data.brand.sideRight) document.getElementById('el-side-right').textContent = data.brand.sideRight;
+        if (data.brand.headerCtaText) document.getElementById('el-header-cta-text').textContent = data.brand.headerCtaText;
+      }
+
+      // Hero
+      if (data.hero) {
+        if (data.hero.eyebrow) document.getElementById('el-hero-eyebrow').textContent = data.hero.eyebrow;
+        if (data.hero.titleLine1 || data.hero.titleLine2) {
+          document.getElementById('el-hero-title').innerHTML = `${data.hero.titleLine1 || ''}<br>${data.hero.titleLine2 || ''}`;
+        }
+        if (data.hero.tagline) document.getElementById('el-hero-tagline').textContent = data.hero.tagline;
+        if (data.hero.primaryCtaText) document.getElementById('el-hero-cta1-text').textContent = data.hero.primaryCtaText;
+        if (data.hero.secondaryCtaText) document.getElementById('el-hero-cta2').textContent = data.hero.secondaryCtaText;
+        if (data.hero.secondaryCtaLink) document.getElementById('el-hero-cta2').href = data.hero.secondaryCtaLink;
+        if (data.hero.sideNote) document.getElementById('el-hero-sidenote').textContent = data.hero.sideNote;
+        if (data.hero.showcaseBadge) document.getElementById('el-hero-badge').textContent = data.hero.showcaseBadge;
+        if (data.hero.showcaseStat) document.getElementById('el-hero-stat').textContent = data.hero.showcaseStat;
+        if (data.hero.showcaseDesc) document.getElementById('el-hero-desc').textContent = data.hero.showcaseDesc;
+      }
+
+      // Benefits
+      if (data.benefits) {
+        if (data.benefits.title || data.benefits.titleItalic) {
+          document.getElementById('el-benefits-heading').innerHTML = `${data.benefits.title || ''} <em>${data.benefits.titleItalic || ''}</em>`;
+        }
+        if (data.benefits.intro) document.getElementById('el-benefits-intro').textContent = data.benefits.intro;
+        if (data.benefits.scriptNote) document.getElementById('el-benefits-script').textContent = data.benefits.scriptNote;
+
+        if (Array.isArray(data.benefits.items)) {
+          const list = document.getElementById('el-benefits-list');
+          const icons = [
+            '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+            '<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+            '<path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V18a1 1 0 0 1-2 0v-1.07A7 7 0 0 1 5.07 11H4a1 1 0 0 1 0-2h1.07A7 7 0 0 1 11 5.07V4a1 1 0 0 1 2 0v1.07A7 7 0 0 1 18.93 11H20a1 1 0 0 1 0 2h-1.07A7 7 0 0 1 13 16.93z"/>'
+          ];
+          list.innerHTML = data.benefits.items.map((b, idx) => `
+            <div class="benefit-item">
+              <div class="benefit-icon">
+                <svg viewBox="0 0 24 24">${icons[idx % icons.length]}</svg>
+              </div>
+              <h4>${b.title || ''}</h4>
+              <p>${b.desc || ''}</p>
+            </div>
+          `).join('');
+        }
+      }
+
+      // Collection
+      if (data.collection) {
+        if (data.collection.watermark) document.getElementById('el-col-watermark').textContent = data.collection.watermark;
+        if (data.collection.tag) document.getElementById('el-col-tag').textContent = data.collection.tag;
+        if (data.collection.title) document.getElementById('el-col-title').textContent = data.collection.title;
+        if (data.collection.price) document.getElementById('el-col-price').textContent = data.collection.price;
+        if (data.collection.ctaText) document.getElementById('el-col-cta-text').textContent = data.collection.ctaText;
+        if (data.collection.pouchBrand) document.getElementById('el-pouch-brand').textContent = data.collection.pouchBrand;
+        if (data.collection.pouchSubtitle) document.getElementById('el-pouch-sub').textContent = data.collection.pouchSubtitle;
+        if (data.collection.pouchWindow) document.getElementById('el-pouch-window').textContent = data.collection.pouchWindow;
+        if (data.collection.pouchFooter) document.getElementById('el-pouch-footer').textContent = data.collection.pouchFooter;
+        if (data.collection.asideTitle) document.getElementById('el-aside-title').textContent = data.collection.asideTitle;
+        if (data.collection.asideDesc) document.getElementById('el-aside-desc').textContent = data.collection.asideDesc;
+        if (data.collection.asideTag) document.getElementById('el-aside-tag').textContent = data.collection.asideTag;
+      }
+
+      // Blends
+      if (data.blends) {
+        if (data.blends.title) document.getElementById('el-blends-title').textContent = data.blends.title;
+        if (data.blends.subtitle) document.getElementById('el-blends-sub').textContent = data.blends.subtitle;
+        if (data.blends.ctaText) document.getElementById('el-blends-cta-text').textContent = data.blends.ctaText;
+
+        if (Array.isArray(data.blends.items)) {
+          const grid = document.getElementById('el-blends-grid');
+          const badgeClasses = ['blend-badge-green', 'blend-badge-mint', 'blend-badge-chai'];
+          grid.innerHTML = data.blends.items.map((b, idx) => `
+            <div class="blend-card">
+              <span class="blend-badge-pill ${badgeClasses[idx % badgeClasses.length]}">${b.badge || ''}</span>
+              <h3 class="blend-name">${b.name || ''}</h3>
+              <p class="blend-notes">${b.notes || ''}</p>
+              <div class="blend-price-row">
+                <span class="blend-price">${b.price || ''}</span>
+                <button onclick="openWhatsAppOrder('${(b.name || '').replace(/'/g, "\\'")}', '${(b.price || '').replace(/'/g, "\\'")}')" class="btn btn-whatsapp" style="padding: 0.55rem 1.3rem; font-size: 0.82rem;">
+                  <svg class="wa-icon" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                  ${b.btnText || 'Order on WhatsApp'}
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      // Create Blend
+      if (data.createBlend) {
+        if (data.createBlend.title) document.getElementById('el-create-title').textContent = data.createBlend.title;
+        if (data.createBlend.subtitle) document.getElementById('el-create-sub').textContent = data.createBlend.subtitle;
+        if (data.createBlend.scriptNote) document.getElementById('el-create-script').textContent = data.createBlend.scriptNote;
+        if (data.createBlend.bottomNote) document.getElementById('el-create-bottom').textContent = data.createBlend.bottomNote;
+        if (data.createBlend.ctaText) document.getElementById('el-create-btn-text').textContent = data.createBlend.ctaText;
+
+        if (Array.isArray(data.createBlend.steps)) {
+          const sRow = document.getElementById('el-create-steps');
+          sRow.innerHTML = data.createBlend.steps.map((st, idx) => `
+            <div class="step-box">
+              <div class="step-num">${st.num || (idx + 1)}</div>
+              <div class="step-content">
+                <h4>${st.title || ''}</h4>
+                <p>${st.desc || ''}</p>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      // Footer
+      if (data.footer) {
+        if (data.footer.leftQuote) document.getElementById('el-footer-left').textContent = data.footer.leftQuote;
+        if (data.footer.centerBrand) document.getElementById('el-footer-brand').textContent = data.footer.centerBrand;
+        if (data.footer.copyright) document.getElementById('el-footer-right').textContent = data.footer.copyright;
+      }
+
+      // Contact, Store & Social Media
+      if (data.contact) {
+        if (data.contact.storeAddress) {
+          const el = document.getElementById('el-store-address');
+          if (el) el.textContent = data.contact.storeAddress;
+        }
+        if (data.contact.timing) {
+          const el = document.getElementById('el-store-timing');
+          if (el) el.textContent = data.contact.timing;
+        }
+        if (data.contact.phone) {
+          const el = document.getElementById('el-store-phone-btn');
+          if (el) el.href = `tel:${data.contact.phone.replace(/[^0-9+]/g, '')}`;
+        }
+        if (data.contact.mapsUrl) {
+          const el = document.getElementById('el-store-maps-btn');
+          if (el) el.href = data.contact.mapsUrl;
+        }
+        if (data.contact.instagramUrl) {
+          const el = document.getElementById('el-store-instagram-link');
+          if (el) el.href = data.contact.instagramUrl;
+        }
+        if (data.contact.instagramHandle) {
+          const el = document.getElementById('el-store-instagram-handle');
+          if (el) el.textContent = data.contact.instagramHandle;
+        }
+        if (data.contact.quickChatText) {
+          const el = document.getElementById('el-wa-quickchat-label');
+          if (el) el.textContent = data.contact.quickChatText;
+        }
+        if (data.contact.catalogBubbleText) {
+          const el = document.getElementById('el-catalog-bubble-text');
+          if (el) el.textContent = data.contact.catalogBubbleText;
+        }
+        if (data.contact.servingNote) {
+          const el = document.getElementById('el-store-serving');
+          if (el) el.textContent = data.contact.servingNote;
+        }
+      }
+
+      // Settings
+      if (data.settings) {
+        if (data.settings.scrollSpeed) activeLerpFactor = data.settings.scrollSpeed;
+        if (data.settings.cardBlur) {
+          document.documentElement.style.setProperty('--card-blur', `${data.settings.cardBlur}px`);
+        }
+      }
+    }
+
+    loadSiteContent();
+  </script>
+
+  <!-- High-Performance Scroll Scrub Engine -->
+  <script>
+    (function() {
+      const TOTAL_FRAMES = 299;
+      const canvas = document.getElementById('animation-canvas');
+      const ctx = canvas.getContext('2d', { alpha: false });
+
+      const images = new Array(TOTAL_FRAMES);
+      const isLoaded = new Uint8Array(TOTAL_FRAMES);
+
+      let targetProgress = 0;
+      let currentProgress = 0;
+      let lastDrawnFrame = -1;
+
+      function getFramePath(idx) {
+        const num = String(idx + 1).padStart(6, '0');
+        return `frames/frame_${num}.png`;
+      }
+
+      function resizeCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+
+        const targetW = Math.round(w * dpr);
+        const targetH = Math.round(h * dpr);
+
+        if (canvas.width !== targetW || canvas.height !== targetH) {
+          canvas.width = targetW;
+          canvas.height = targetH;
+        }
+
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, targetW, targetH);
+      }
+
+      function loadImage(idx) {
+        if (images[idx]) return images[idx];
+
+        const img = new Image();
+        img.src = getFramePath(idx);
+
+        img.onload = () => {
+          isLoaded[idx] = 1;
+          const currentFrame = Math.round(currentProgress * (TOTAL_FRAMES - 1));
+          if (idx === currentFrame || (idx === 0 && lastDrawnFrame === -1)) {
+            renderFrame(idx);
+          }
+        };
+
+        images[idx] = img;
+        return img;
+      }
+
+      function initPreloading() {
+        // 1. Immediately load frame 0
+        loadImage(0);
+
+        // 2. Preload timeline milestones (every 8th frame)
+        for (let i = 8; i < TOTAL_FRAMES; i += 8) {
+          loadImage(i);
+        }
+        loadImage(TOTAL_FRAMES - 1);
+
+        // 3. Incrementally load all intermediate frames in smooth batches
+        let next = 1;
+        function loadBatch() {
+          let batch = 0;
+          while (next < TOTAL_FRAMES && batch < 10) {
+            if (!images[next]) {
+              loadImage(next);
+              batch++;
+            }
+            next++;
+          }
+          if (next < TOTAL_FRAMES) {
+            setTimeout(loadBatch, 20);
+          }
+        }
+        setTimeout(loadBatch, 40);
+      }
+
+      function getBestAvailableImage(idx) {
+        if (isLoaded[idx] && images[idx] && images[idx].naturalWidth > 0) {
+          return images[idx];
+        }
+
+        loadImage(idx);
+
+        for (let step = 1; step < TOTAL_FRAMES; step++) {
+          const prev = idx - step;
+          if (prev >= 0 && isLoaded[prev] && images[prev].naturalWidth > 0) {
+            return images[prev];
+          }
+          const next = idx + step;
+          if (next < TOTAL_FRAMES && isLoaded[next] && images[next].naturalWidth > 0) {
+            return images[next];
+          }
+        }
+
+        return images[0];
+      }
+
+      function renderFrame(idx) {
+        const img = getBestAvailableImage(idx);
+        if (!img || !img.complete || img.naturalWidth === 0) return;
+
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+
+        resizeCanvas();
+
+        ctx.save();
+        ctx.scale(dpr, dpr);
+
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, w, h);
+
+        const imgW = img.naturalWidth;
+        const imgH = img.naturalHeight;
+        const screenAspect = w / h;
+
+        let scale;
+        if (screenAspect >= 1.0) {
+          scale = Math.max(w / imgW, h / imgH);
+        } else {
+          scale = Math.min(w / imgW, h / imgH);
+        }
+
+        const drawW = imgW * scale;
+        const drawH = imgH * scale;
+        const drawX = (w - drawW) / 2;
+        const drawY = (h - drawH) / 2;
+
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, drawX, drawY, drawW, drawH);
+
+        ctx.restore();
+        lastDrawnFrame = idx;
+      }
+
+      function updateProgress() {
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+        const maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
+        targetProgress = maxScroll > 0 ? Math.min(1, Math.max(0, scrollY / maxScroll)) : 0;
+      }
+
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('resize', () => {
+        resizeCanvas();
+        if (lastDrawnFrame >= 0) {
+          renderFrame(lastDrawnFrame);
+        }
+      });
+
+      // Smooth lerp loop
+      function loop() {
+        const delta = targetProgress - currentProgress;
+        if (Math.abs(delta) > 0.00005) {
+          currentProgress += delta * activeLerpFactor;
+        } else {
+          currentProgress = targetProgress;
+        }
+
+        const targetFrame = Math.min(
+          TOTAL_FRAMES - 1,
+          Math.max(0, Math.round(currentProgress * (TOTAL_FRAMES - 1)))
+        );
+
+        if (targetFrame !== lastDrawnFrame || lastDrawnFrame === -1) {
+          renderFrame(targetFrame);
+        }
+
+        requestAnimationFrame(loop);
+      }
+
+      resizeCanvas();
+      updateProgress();
+      currentProgress = targetProgress;
+      initPreloading();
+      requestAnimationFrame(loop);
+    })();
+  </script>
+  <!-- Floating WhatsApp Catalogue Widget (bottom-right matching screenshot) -->
+  <div class="floating-wa-widget" id="floating-wa-widget">
+    <div class="wa-bubble-tooltip" id="wa-bubble-tooltip" onclick="openWhatsAppCatalogue()">
+      <span id="el-catalog-bubble-text">Check our latest catalog! 📖</span>
+      <span class="wa-bubble-close" onclick="event.stopPropagation(); document.getElementById('wa-bubble-tooltip').style.display='none';">&times;</span>
+    </div>
+    <button class="floating-wa-btn" onclick="openWhatsAppCatalogue()" title="Open WhatsApp Catalogue" aria-label="Open WhatsApp Catalogue">
+      <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    </button>
+  </div>
+</body>
+</html>

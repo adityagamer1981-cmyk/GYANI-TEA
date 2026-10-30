@@ -1,0 +1,12 @@
+{
+  "name": "gyani-tea-scroll-animation",
+  "version": "1.0.0",
+  "description": "Gyani Tea high-quality scroll-based animation webpage",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
