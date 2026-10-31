@@ -40,14 +40,12 @@ function handleRequest(req, res) {
 <<<<<<< HEAD
     handleContent(req, res);
     return;
-=======
     if (req.method === 'GET') {
       fs.readFile(CONTENT_FILE, 'utf8', (err, data) => {
         if (err) {
           res.writeHead(500, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ error: 'Failed to read content file' }));
           return;
-        }
         res.writeHead(200, {
           'Content-Type': 'application/json; charset=utf-8',
           'Cache-Control': 'no-cache, no-store, must-revalidate'
