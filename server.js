@@ -121,26 +121,4 @@ function handleRequest(req, res) {
   });
 
 }
-  function startServer(port) {
-  const server = http.createServer(handleRequest);
-  server.on('error', (err) => {
-    if (err.code === 'EADDRINUSE') {
-      console.log(`Port ${port} in use, skipping...`);
-    } else {
-      console.error(`Server error on port ${port}:`, err);
-    }
-  });
-
-  server.listen(port, '0.0.0.0', () => {
-    console.log(`  - Local:   http://localhost:${port}`);
-    console.log(`  - Admin:   http://localhost:${port}/admin`);
-  });
-
-  return server;
-}
-
-console.log('\n  ▲ Gyani Tea Dev Server + Admin API');
-console.log('  -----------------------------------');
-startServer(PORT);
-startServer(ALT_PORT);
-console.log('  -----------------------------------\n');
+  module.exports = handleRequest;
