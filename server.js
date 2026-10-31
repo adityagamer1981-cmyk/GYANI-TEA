@@ -120,7 +120,6 @@ function handleRequest(req, res) {
     res.writeHead(200, headers);
     fs.createReadStream(filePath).pipe(res);
   });
-}
 
 function startServer(port) {
   const server = http.createServer(handleRequest);
