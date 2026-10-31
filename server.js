@@ -84,7 +84,6 @@ function handleRequest(req, res) {
       return;
     }
   }
-
   // Routing shortcuts
   if (reqUrl === '/' || reqUrl === '') {
     reqUrl = '/index.html';
