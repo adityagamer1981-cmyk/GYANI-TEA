@@ -128,4 +128,4 @@ function handleRequest(req, res) {
 });
 
 }
-  module.exports = handleRequest;
+  module.exports = handleRequest };
