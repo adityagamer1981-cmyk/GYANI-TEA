@@ -1,0 +1,169 @@
+{
+  "brand": {
+    "name": "GYANI TEA",
+    "tagline": "Pure Tea, and chai masala",
+    "sideLeft": "Tea For A Brighter You",
+    "sideRight": "Sip · Nourish · Repeat",
+    "navLinks": [
+      {
+        "label": "Benefits",
+        "href": "#benefits"
+      },
+      {
+        "label": "Blends",
+        "href": "#blends"
+      },
+      {
+        "label": "Create Yours",
+        "href": "#create"
+      },
+      {
+        "label": "Collection",
+        "href": "#loose-leaf"
+      },
+      {
+        "label": "Store & Contact",
+        "href": "#store-contact"
+      }
+    ],
+    "headerCtaText": "WhatsApp Catalogue →",
+    "headerCtaLink": "whatsapp-catalogue"
+  },
+  "whatsapp": {
+    "phoneNumber": "+919876543210",
+    "catalogueUrl": "https://wa.me/c/919876543210",
+    "greetingTemplate": "Hello Gyani Tea! I would like to order *{product}* ({price}). Please share delivery and order details."
+  },
+  "hero": {
+    "eyebrow": "A More Natural You",
+    "titleLine1": "PURE",
+    "titleLine2": "TEA AND CHAI MASALA",
+    "tagline": "Natural leaves, simple rituals, better daily moments. Grown with reverence on sacred mountain slopes.",
+    "primaryCtaText": "Order on WhatsApp →",
+    "primaryCtaLink": "whatsapp-hero",
+    "secondaryCtaText": "Our Rituals",
+    "secondaryCtaLink": "#benefits",
+    "sideNote": "• Scroll down to witness the craft of every drop",
+    "showcaseBadge": "CHAI MASALA AND CHAI PATTI",
+    "showcaseStat": "30%OFF",
+    "showcaseDesc": "GYANI TEA\nRishte Apno Se\n\nRich in aroma, bold in taste, and perfect for every moment. Gyani Tea brings you a refreshing cup of chai that makes every sip special.\n\nA Perfect Cup, Every Time!"
+  },
+  "benefits": {
+    "title": "Natural",
+    "titleItalic": "Benefits",
+    "intro": "Experience the comforting goodness of Gyani Tea, crafted to bring rich flavour, refreshing aroma, and warmth to your everyday moments. A freshly brewed cup of tea can help you feel refreshed, provide a gentle boost of alertness through its natural caffeine content, and make your daily tea ritual more enjoyable. Made for those who appreciate authentic taste and the simple pleasure of a perfectly brewed cup, Gyani Tea brings comfort and freshness to every sip.\n\n",
+    "scriptNote": "Plants · People · Better Days",
+    "items": [
+      {
+        "id": 1,
+        "title": "Rich in Antioxidants",
+        "desc": "Potent catechins and polyphenols guard vitality, shield cells, and support daily cellular wellness."
+      },
+      {
+        "id": 2,
+        "title": "Supports Calm Focus",
+        "desc": "Natural L-theanine provides sustained, clean mental clarity without caffeine spikes or crashes."
+      },
+      {
+        "id": 3,
+        "title": "Naturally Refreshing",
+        "desc": "Pure whole leaves and botanicals for rejuvenating hydration and crisp aromatic revitalization."
+      }
+    ]
+  },
+  "collection": {
+    "watermark": "ORGANIC",
+    "tag": "Pure Ingredients • Exceptional Flavour",
+    "title": "Loose Leaf Collection",
+    "price": "₹499",
+    "ctaText": "Buy on WhatsApp →",
+    "ctaLink": "whatsapp-collection",
+    "pouchBrand": "GYANI TEA",
+    "pouchSubtitle": "Organic Loose Leaf Reserve",
+    "pouchWindow": "• WHOLE LEAF HARVEST •",
+    "pouchFooter": "Good Tea • Brighter Days • 100g",
+    "asideTitle": "From Nature to Your Cup",
+    "asideDesc": "Whole-leaf integrity preserves essential oils and delicate aromas that commercial tea dust destroys.",
+    "asideTag": "Real Tea • Real Good Living"
+  },
+  "blends": {
+    "title": "Signature Blends",
+    "subtitle": "Thoughtfully crafted. Naturally better. Discover our most loved blends made with sun-dried herbs and wild mountain spices.",
+    "ctaText": "WhatsApp Catalogue →",
+    "ctaLink": "whatsapp-catalogue",
+    "items": [
+      {
+        "id": 1,
+        "badge": "Organic Green",
+        "badgeType": "green",
+        "name": "Citrus Green",
+        "notes": "Crisp Sencha green leaves with dried bergamot peel, lemongrass, and bright morning citrus zest.",
+        "price": "₹299",
+        "btnText": "Order on WhatsApp"
+      },
+      {
+        "id": 2,
+        "badge": "Herbal Infusion",
+        "badgeType": "mint",
+        "name": "Mint Garden",
+        "notes": "Cool Moroccan spearmint, peppermint leaves, sweet licorice root, and soothing elderflower.",
+        "price": "₹329",
+        "btnText": "Order on WhatsApp"
+      },
+      {
+        "id": 3,
+        "badge": "Royal Masala",
+        "badgeType": "chai",
+        "name": "Golden Chai",
+        "notes": "Rich Assam CTC black tea, freshly crushed green cardamom, Ceylon cinnamon, and aromatic cloves.",
+        "price": "₹349",
+        "btnText": "Order on WhatsApp"
+      }
+    ]
+  },
+  "createBlend": {
+    "title": "Create Your Blend",
+    "subtitle": "Your tea. Your way. A customized cup as unique and personal as your morning ritual.",
+    "scriptNote": "Good Things Steep Here",
+    "steps": [
+      {
+        "num": "1",
+        "title": "Pick a base",
+        "desc": "Choose from delicate green, bold Assam black, earthy oolong, or caffeine-free South African rooibos."
+      },
+      {
+        "num": "2",
+        "title": "Add a flavor",
+        "desc": "Infuse with dried orange peel, cardamom pods, cinnamon bark, lavender blossoms, or fresh mint."
+      },
+      {
+        "num": "3",
+        "title": "Choose format",
+        "desc": "Packaged in vacuum-sealed biodegradable pyramid silk sachets or loose leaf tin containers."
+      }
+    ],
+    "bottomNote": "Curated by Master Tea Sommeliers • Free Shipping across India on orders above ₹499",
+    "ctaText": "Order Custom Blend on WhatsApp →"
+  },
+  "contact": {
+    "storeAddress": "B 915, Near Mohalla Clinic, GD Colony, Mayur Vihar Ph-3, Delhi - 110096",
+    "mapsUrl": "https://maps.google.com/?q=Mayur+Vihar+Phase+3+Delhi",
+    "phone": "+91 98765 43210",
+    "timing": "Open 7 Days: 7 AM - 11 PM",
+    "instagramUrl": "https://instagram.com/gyani_tea",
+    "instagramHandle": "@gyanitea",
+    "quickChatText": "Quick Chat",
+    "catalogBubbleText": "Check our latest catalog! 📖",
+    "servingNote": "Proudly serving tea lovers across GD Colony & India."
+  },
+  "footer": {
+    "leftQuote": "Brew better moments.",
+    "centerBrand": "GYANI TEA",
+    "copyright": "© 2026 Gyani Tea. Proudly serving tea lovers across GD Colony & India."
+  },
+  "settings": {
+    "scrollSpeed": 0.15,
+    "canvasBrightness": 100,
+    "cardBlur": 16
+  }
+}

@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gyani Tea — Admin Panel</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-dark: #07120D;
+      --bg-surface: #0E1F17;
+      --bg-card: rgba(18, 38, 29, 0.75);
+      --bg-input: #081610;
+      --border: rgba(212, 163, 115, 0.2);
+      --border-focus: #E5B382;
+      --accent-terracotta: #C86C3E;
+      --accent-gold: #E5B382;
+      --accent-sage: #8FA89B;
+      --accent-whatsapp: #25D366;
+      --text-main: #F4F6F5;
+      --text-muted: #8EA096;
+      --radius: 12px;
+      --radius-pill: 999px;
+      --transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* Sidebar Navigation */
+    .admin-sidebar {
+      width: 280px;
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      flex-shrink: 0;
+      padding: 2rem 1.5rem;
+    }
+
+    .brand-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-header svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--accent-gold);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 0.16em;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .brand-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: rgba(37, 211, 102, 0.2);
+      color: #25D366;
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-pill);
+      font-weight: 700;
+      margin-top: 0.2rem;
+    }
+
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: #ffffff;
+      border-color: rgba(212, 163, 115, 0.15);
+    }
+
+    .nav-btn.active {
+      background: rgba(212, 163, 115, 0.15);
+      color: var(--accent-gold);
+      border-color: rgba(212, 163, 115, 0.4);
+    }
+
+    .nav-btn .icon {
+      font-size: 1.15rem;
+    }
+
+    .sidebar-footer {
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    /* Main Content Area */
+    .admin-main {
+      flex-grow: 1;
+      padding: 2.5rem 3.5rem;
+      overflow-y: auto;
+      max-width: 1100px;
+    }
+
+    /* Top Action Bar */
+    .top-action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-heading h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.8rem;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .page-heading p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .action-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.6rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      text-transform: capitalize;
+    }
+
+    .btn-save {
+      background-color: var(--accent-terracotta);
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(200, 108, 62, 0.35);
+    }
+    .btn-save:hover {
+      background-color: #d87747;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(200, 108, 62, 0.5);
+    }
+
+    .btn-view {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      border: 1px solid var(--border);
+    }
+    .btn-view:hover {
+      background: rgba(212, 163, 115, 0.15);
+      border-color: var(--accent-gold);
+    }
+
+    .btn-reset {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .btn-reset:hover {
+      color: #ff7b7b;
+      border-color: rgba(255, 123, 123, 0.3);
+    }
+
+    /* Form Section Panels */
+    .section-panel {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .section-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .form-card-header {
+      margin-bottom: 1.8rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(212, 163, 115, 0.15);
+    }
+
+    .form-card-header h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.3rem;
+    }
+
+    .form-card-header p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .form-grid.full {
+      grid-template-columns: 1fr;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group.col-span-2 {
+      grid-column: span 2;
+    }
+
+    label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1.1rem;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(229, 179, 130, 0.15);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .field-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #103825;
+      color: #ffffff;
+      border: 1px solid var(--accent-gold);
+      padding: 1rem 1.8rem;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      font-weight: 600;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .item-subcard {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(212, 163, 115, 0.12);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .item-subcard-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* WhatsApp highlight badge */
+    .wa-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      color: #25D366;
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="brand-header">
+      <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>
+      <div>
+        <div class="brand-title">Gyani Tea</div>
+        <span class="brand-badge">WhatsApp Orders Active</span>
+      </div>
+    </div>
+
+    <ul class="nav-menu">
+      <li><button class="nav-btn active" data-tab="whatsapp"><span class="icon">💬</span> WhatsApp &amp; Orders</button></li>
+      <li><button class="nav-btn" data-tab="contact"><span class="icon">📍</span> Store, Contact &amp; Social</button></li>
+      <li><button class="nav-btn" data-tab="brand"><span class="icon">🏷️</span> Brand &amp; Nav</button></li>
+      <li><button class="nav-btn" data-tab="hero"><span class="icon">🌟</span> Hero Section</button></li>
+      <li><button class="nav-btn" data-tab="benefits"><span class="icon">🍃</span> Natural Benefits</button></li>
+      <li><button class="nav-btn" data-tab="collection"><span class="icon">📦</span> Collection (₹)</button></li>
+      <li><button class="nav-btn" data-tab="blends"><span class="icon">🍵</span> Blends (₹)</button></li>
+      <li><button class="nav-btn" data-tab="create"><span class="icon">✨</span> Create Your Blend</button></li>
+      <li><button class="nav-btn" data-tab="footer"><span class="icon">📜</span> Footer &amp; Details</button></li>
+      <li><button class="nav-btn" data-tab="settings"><span class="icon">⚙️</span> Settings &amp; Effects</button></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <a href="/" target="_blank" class="btn btn-view" style="width: 100%; justify-content: center;">
+        👁️ View Live Website
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="admin-main">
+    <div class="top-action-bar">
+      <div class="page-heading">
+        <h1 id="tab-title">WhatsApp & Ordering Setup</h1>
+        <p>Direct WhatsApp orders with zero payment gateways, zero login barriers, and Indian Rupee (₹) pricing.</p>
+      </div>
+      <div class="action-group">
+        <button class="btn btn-reset" id="btn-reset">Reset</button>
+        <button class="btn btn-save" id="btn-save">💾 Save Changes</button>
+      </div>
+    </div>
+
+    <!-- 0. WHATSAPP & DIRECT ORDERING TAB -->
+    <div class="section-panel active" id="tab-whatsapp">
+      <div class="form-card">
+        <div class="form-card-header">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3>WhatsApp Business & Catalogue Configuration</h3>
+              <p>Customers will directly reach your WhatsApp with their selected item and price filled in automatically.</p>
+            </div>
+            <span class="wa-pill">Direct WhatsApp Redirection</span>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label>WhatsApp Number (With Country Code)</label>
+            <input type="text" id="wa-phoneNumber" placeholder="e.g. +91 98765 43210 or 919876543210">
+            <span class="field-hint">Indian numbers: start with 91 or +91 (e.g. 919876543210). Customers will be redirected directly here without login.</span>
+          </div>
+          <div class="form-group col-span-2">
+            <label>WhatsApp Catalogue URL (Optional)</label>
+            <input type="text" id="wa-catalogueUrl" placeholder="e.g. https://wa.me/c/919876543210">
+            <span class="field-hint">If you have a WhatsApp Business catalogue link, enter it here. Clicking "WhatsApp Catalogue" on the header or blends bar opens this link directly.</span>
+          </div>
+          <div class="form-group col-span-2">
+            <label>Order Message Template</label>
+            <textarea id="wa-greetingTemplate" placeholder="Hello Gyani Tea! I would like to order *{product}* ({price}). Please share delivery and order details."></textarea>
+            <span class="field-hint">Use <code>{product}</code> for product name and <code>{price}</code> for price in Rupees (₹).</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. BRAND & NAVIGATION TAB -->
+    <div class="section-panel" id="tab-brand">
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Brand Identity</h3>
+          <p>Global brand name, logo tagline, and floating page accents.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Brand Name</label>
+            <input type="text" id="brand-name">
+          </div>
+          <div class="form-group">
+            <label>Logo Tagline</label>
+            <input type="text" id="brand-tagline">
+          </div>
+          <div class="form-group">
+            <label>Left Vertical Label</label>
+            <input type="text" id="brand-sideLeft">
+          </div>
+          <div class="form-group">
+            <label>Right Vertical Label</label>
+            <input type="text" id="brand-sideRight">
+          </div>
+          <div class="form-group col-span-2">
+            <label>Header CTA Button Text</label>
+            <input type="text" id="brand-headerCtaText">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. HERO SECTION TAB -->
+    <div class="section-panel" id="tab-hero">
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Hero Typography & CTAs</h3>
+          <p>Main title and introductory copy over the liquid droplet animation.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Eyebrow Tag</label>
+            <input type="text" id="hero-eyebrow">
+          </div>
+          <div class="form-group">
+            <label>Hero Title (Line 1)</label>
+            <input type="text" id="hero-titleLine1">
+          </div>
+          <div class="form-group col-span-2">
+            <label>Hero Title (Line 2)</label>
+            <input type="text" id="hero-titleLine2">
+          </div>
+          <div class="form-group col-span-2">
+            <label>Tagline Description</label>
+            <textarea id="hero-tagline"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Primary WhatsApp CTA Button Text</label>
+            <input type="text" id="hero-primaryCtaText">
+          </div>
+          <div class="form-group">
+            <label>Secondary Button Text</label>
+            <input type="text" id="hero-secondaryCtaText">
+          </div>
+          <div class="form-group col-span-2">
+            <label>Scroll Instruction Note</label>
+            <input type="text" id="hero-sideNote">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Hero Right Stat Card</h3>
+          <p>The floating showcase card on the right side of the hero section.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Badge Text</label>
+            <input type="text" id="hero-showcaseBadge">
+          </div>
+          <div class="form-group">
+            <label>Big Stat Headline</label>
+            <input type="text" id="hero-showcaseStat">
+          </div>
+          <div class="form-group col-span-2">
+            <label>Card Description</label>
+            <textarea id="hero-showcaseDesc"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. NATURAL BENEFITS TAB -->
+    <div class="section-panel" id="tab-benefits">
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Benefits Header</h3>
+          <p>Section title, intro text, and cursive handwriting note.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Heading First Word</label>
+            <input type="text" id="benefits-title">
+          </div>
+          <div class="form-group">
+            <label>Heading Italic Accent Word</label>
+            <input type="text" id="benefits-titleItalic">
+          </div>
+          <div class="form-group col-span-2">
+            <label>Intro Text</label>
+            <textarea id="benefits-intro"></textarea>
+          </div>
+          <div class="form-group col-span-2">
+            <label>Cursive Script Note</label>
+            <input type="text" id="benefits-scriptNote">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Benefit Items (3 Columns)</h3>
+          <p>The three cards displayed over the amber wave splash.</p>
+        </div>
+        <div id="benefits-items-container"></div>
+      </div>
+    </div>
+
+    <!-- 4. ORGANIC COLLECTION TAB -->
+    <div class="section-panel" id="tab-collection">
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Collection Showcase & Pricing (₹)</h3>
+          <p>Watermark, Rupee pricing, and 3D pouch mockup details.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Giant Watermark Text</label>
+            <input type="text" id="col-watermark">
+          </div>
+          <div class="form-group">
+            <label>Product Title</label>
+            <input type="text" id="col-title">
+          </div>
+          <div class="form-group">
+            <label>Caps Tagline</label>
+            <input type="text" id="col-tag">
+          </div>
+          <div class="form-group">
+            <label>Price in Rupees (₹)</label>
+            <input type="text" id="col-price" placeholder="e.g. ₹499">
+          </div>
+          <div class="form-group col-span-2">
+            <label>WhatsApp CTA Button Text</label>
+            <input type="text" id="col-ctaText">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Pouch Mockup & Details Aside</h3>
+          <p>Text rendered on the tea packaging and side description.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Pouch Brand Text</label>
+            <input type="text" id="col-pouchBrand">
+          </div>
+          <div class="form-group">
+            <label>Pouch Subtitle</label>
+            <input type="text" id="col-pouchSubtitle">
+          </div>
+          <div class="form-group">
+            <label>Pouch Window Label</label>
+            <input type="text" id="col-pouchWindow">
+          </div>
+          <div class="form-group">
+            <label>Pouch Footer Label</label>
+            <input type="text" id="col-pouchFooter">
+          </div>
+          <div class="form-group">
+            <label>Aside Header</label>
+            <input type="text" id="col-asideTitle">
+          </div>
+          <div class="form-group">
+            <label>Aside Tag</label>
+            <input type="text" id="col-asideTag">
+          </div>
+          <div class="form-group col-span-2">
+            <label>Aside Description</label>
+            <textarea id="col-asideDesc"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. SIGNATURE BLENDS TAB -->
+    <div class="section-panel" id="tab-blends">
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Signature Blends Header</h3>
+          <p>Section title, subtitle description, and WhatsApp Catalogue action button.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Section Title</label>
+            <input type="text" id="blends-title">
+          </div>
+          <div class="form-group">
+            <label>CTA Button Text</label>
+            <input type="text" id="blends-ctaText">
+          </div>
+          <div class="form-group col-span-2">
+            <label>Subtitle Description</label>
+            <textarea id="blends-subtitle"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Blend Cards & Rupee Pricing (₹)</h3>
+          <p>Customize the 3 signature tea blends, tasting notes, and prices in Rupees.</p>
+        </div>
+        <div id="blends-items-container"></div>
+      </div>
+    </div>
+
+    <!-- 6. CREATE YOUR BLEND TAB -->
+    <div class="section-panel" id="tab-create">
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Custom Blend Builder</h3>
+          <p>Section title, subtitle, script note, and bottom action bar.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Section Title</label>
+            <input type="text" id="create-title">
+          </div>
+          <div class="form-group">
+            <label>Script Accent Note</label>
+            <input type="text" id="create-scriptNote">
+          </div>
+          <div class="form-group col-span-2">
+            <label>Subtitle Description</label>
+            <textarea id="create-subtitle"></textarea>
+          </div>
+          <div class="form-group col-span-2">
+            <label>Bottom Sommelier Note</label>
+            <input type="text" id="create-bottomNote">
+          </div>
+          <div class="form-group col-span-2">
+            <label>WhatsApp Order Button Text</label>
+            <input type="text" id="create-ctaText">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>3 Steps to Create Blend</h3>
+          <p>Configure the title and descriptions for Step 1, Step 2, and Step 3.</p>
+        </div>
+        <div id="create-steps-container"></div>
+      </div>
+    </div>
+
+    <!-- STORE, CONTACT & SOCIAL MEDIA TAB -->
+    <div class="section-panel" id="tab-contact">
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>📍 Physical Store Location &amp; Directions</h3>
+          <p>Address card shown with green timing badge, Call Us button, and Google Maps directions.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label>Store Physical Address</label>
+            <textarea id="contact-storeAddress" rows="3" placeholder="B 915, Near Mohalla Clinic,&#10;GD Colony, Mayur Vihar Ph-3,&#10;Delhi - 110096"></textarea>
+            <span class="field-hint">Enter the full street address. Line breaks will be preserved.</span>
+          </div>
+          <div class="form-group">
+            <label>Operating Hours / Days Badge</label>
+            <input type="text" id="contact-timing" placeholder="Open 7 Days: 7 AM - 11 PM">
+            <span class="field-hint">Displays inside the green clock badge.</span>
+          </div>
+          <div class="form-group">
+            <label>Store Phone Number (For "Call Us")</label>
+            <input type="text" id="contact-phone" placeholder="+91 98765 43210">
+            <span class="field-hint">Used when customers click "Call Us".</span>
+          </div>
+          <div class="form-group col-span-2">
+            <label>Google Maps Directions URL</label>
+            <input type="text" id="contact-mapsUrl" placeholder="https://maps.google.com/?q=Mayur+Vihar+Phase+3+Delhi">
+            <span class="field-hint">URL opened when customers click the red "Get Directions" button.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>📱 Social Media &amp; Direct Chat Options</h3>
+          <p>Instagram profile, WhatsApp quick chat, and floating bottom-right catalog widget.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Instagram Profile URL</label>
+            <input type="text" id="contact-instagramUrl" placeholder="https://instagram.com/gyani_tea">
+          </div>
+          <div class="form-group">
+            <label>Instagram Handle Display</label>
+            <input type="text" id="contact-instagramHandle" placeholder="@gyanitea">
+            <span class="field-hint">Text label shown below the Instagram icon.</span>
+          </div>
+          <div class="form-group">
+            <label>WhatsApp Quick Chat Label</label>
+            <input type="text" id="contact-quickChatText" placeholder="Quick Chat">
+            <span class="field-hint">Text label shown below the round WhatsApp button.</span>
+          </div>
+          <div class="form-group">
+            <label>Floating WhatsApp Catalog Bubble Text</label>
+            <input type="text" id="contact-catalogBubbleText" placeholder="Check our latest catalog! 📖">
+            <span class="field-hint">Tooltip speech bubble floating in the bottom-right corner.</span>
+          </div>
+          <div class="form-group col-span-2">
+            <label>Store Serving Footer Note</label>
+            <input type="text" id="contact-servingNote" placeholder="Proudly serving tea lovers across GD Colony & India.">
+            <span class="field-hint">Sub-footer credit line at the bottom of the store section.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. FOOTER TAB -->
+    <div class="section-panel" id="tab-footer">
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Footer Content</h3>
+          <p>Footer quote, brand text, and copyright statement.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Left Quote</label>
+            <input type="text" id="footer-leftQuote">
+          </div>
+          <div class="form-group">
+            <label>Center Brand</label>
+            <input type="text" id="footer-centerBrand">
+          </div>
+          <div class="form-group col-span-2">
+            <label>Copyright Statement</label>
+            <input type="text" id="footer-copyright">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. SETTINGS & EFFECTS TAB -->
+    <div class="section-panel" id="tab-settings">
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3>Animation & Visual Effects</h3>
+          <p>Tune the scroll interpolation physics and visual styling.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Scrub Smoothness (Lerp Factor)</label>
+            <input type="number" id="settings-scrollSpeed" step="0.01" min="0.05" max="0.5">
+            <span class="field-hint">Default 0.15. Lower = smoother momentum, Higher = faster snap.</span>
+          </div>
+          <div class="form-group">
+            <label>Card Blur Intensity (px)</label>
+            <input type="number" id="settings-cardBlur" min="0" max="40">
+            <span class="field-hint">Default 16px frosted glass blur.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <span>✅</span>
+    <span id="toast-msg">Changes saved successfully!</span>
+  </div>
+
+  <script>
+    let siteData = {};
+
+    const tabTitles = {
+      'whatsapp': 'WhatsApp & Ordering Setup',
+      'contact': 'Store Location, Contact & Social Media',
+      'brand': 'Brand & Navigation',
+      'hero': 'Hero Section',
+      'benefits': 'Natural Benefits',
+      'collection': 'Organic Collection (₹)',
+      'blends': 'Signature Blends (₹)',
+      'create': 'Create Your Blend',
+      'footer': 'Footer & Details',
+      'settings': 'Settings & Effects'
+    };
+
+    // Tab Switching
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+        
+        btn.classList.add('active');
+        const tab = btn.dataset.tab;
+        document.getElementById(`tab-${tab}`).classList.add('active');
+        document.getElementById('tab-title').textContent = tabTitles[tab] || 'Edit Website';
+      });
+    });
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    // Load Data from API
+    async function loadData() {
+      try {
+        const res = await fetch('/api/content');
+        if (!res.ok) throw new Error('Network error');
+        siteData = await res.json();
+        populateForm(siteData);
+      } catch (e) {
+        console.error('Failed to load content:', e);
+        showToast('⚠️ Could not load content from server');
+      }
+    }
+
+    function populateForm(data) {
+      // WhatsApp
+      if (data.whatsapp) {
+        document.getElementById('wa-phoneNumber').value = data.whatsapp.phoneNumber || '';
+        document.getElementById('wa-catalogueUrl').value = data.whatsapp.catalogueUrl || '';
+        document.getElementById('wa-greetingTemplate').value = data.whatsapp.greetingTemplate || '';
+      }
+
+      // Contact, Store & Social Media
+      if (data.contact) {
+        document.getElementById('contact-storeAddress').value = data.contact.storeAddress || '';
+        document.getElementById('contact-timing').value = data.contact.timing || '';
+        document.getElementById('contact-phone').value = data.contact.phone || '';
+        document.getElementById('contact-mapsUrl').value = data.contact.mapsUrl || '';
+        document.getElementById('contact-instagramUrl').value = data.contact.instagramUrl || '';
+        document.getElementById('contact-instagramHandle').value = data.contact.instagramHandle || '';
+        document.getElementById('contact-quickChatText').value = data.contact.quickChatText || '';
+        document.getElementById('contact-catalogBubbleText').value = data.contact.catalogBubbleText || '';
+        document.getElementById('contact-servingNote').value = data.contact.servingNote || '';
+      }
+
+      // Brand
+      if (data.brand) {
+        document.getElementById('brand-name').value = data.brand.name || '';
+        document.getElementById('brand-tagline').value = data.brand.tagline || '';
+        document.getElementById('brand-sideLeft').value = data.brand.sideLeft || '';
+        document.getElementById('brand-sideRight').value = data.brand.sideRight || '';
+        document.getElementById('brand-headerCtaText').value = data.brand.headerCtaText || '';
+      }
+
+      // Hero
+      if (data.hero) {
+        document.getElementById('hero-eyebrow').value = data.hero.eyebrow || '';
+        document.getElementById('hero-titleLine1').value = data.hero.titleLine1 || '';
+        document.getElementById('hero-titleLine2').value = data.hero.titleLine2 || '';
+        document.getElementById('hero-tagline').value = data.hero.tagline || '';
+        document.getElementById('hero-primaryCtaText').value = data.hero.primaryCtaText || '';
+        document.getElementById('hero-secondaryCtaText').value = data.hero.secondaryCtaText || '';
+        document.getElementById('hero-sideNote').value = data.hero.sideNote || '';
+        document.getElementById('hero-showcaseBadge').value = data.hero.showcaseBadge || '';
+        document.getElementById('hero-showcaseStat').value = data.hero.showcaseStat || '';
+        document.getElementById('hero-showcaseDesc').value = data.hero.showcaseDesc || '';
+      }
+
+      // Benefits
+      if (data.benefits) {
+        document.getElementById('benefits-title').value = data.benefits.title || '';
+        document.getElementById('benefits-titleItalic').value = data.benefits.titleItalic || '';
+        document.getElementById('benefits-intro').value = data.benefits.intro || '';
+        document.getElementById('benefits-scriptNote').value = data.benefits.scriptNote || '';
+
+        const container = document.getElementById('benefits-items-container');
+        container.innerHTML = '';
+        (data.benefits.items || []).forEach((item, idx) => {
+          container.innerHTML += `
+            <div class="item-subcard">
+              <div class="item-subcard-title">Benefit Item #${idx + 1}</div>
+              <div class="form-grid">
+                <div class="form-group col-span-2">
+                  <label>Title</label>
+                  <input type="text" class="benefit-item-title" data-idx="${idx}" value="${item.title || ''}">
+                </div>
+                <div class="form-group col-span-2">
+                  <label>Description</label>
+                  <textarea class="benefit-item-desc" data-idx="${idx}">${item.desc || ''}</textarea>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Collection
+      if (data.collection) {
+        document.getElementById('col-watermark').value = data.collection.watermark || '';
+        document.getElementById('col-tag').value = data.collection.tag || '';
+        document.getElementById('col-title').value = data.collection.title || '';
+        document.getElementById('col-price').value = data.collection.price || '';
+        document.getElementById('col-ctaText').value = data.collection.ctaText || '';
+        document.getElementById('col-pouchBrand').value = data.collection.pouchBrand || '';
+        document.getElementById('col-pouchSubtitle').value = data.collection.pouchSubtitle || '';
+        document.getElementById('col-pouchWindow').value = data.collection.pouchWindow || '';
+        document.getElementById('col-pouchFooter').value = data.collection.pouchFooter || '';
+        document.getElementById('col-asideTitle').value = data.collection.asideTitle || '';
+        document.getElementById('col-asideDesc').value = data.collection.asideDesc || '';
+        document.getElementById('col-asideTag').value = data.collection.asideTag || '';
+      }
+
+      // Blends
+      if (data.blends) {
+        document.getElementById('blends-title').value = data.blends.title || '';
+        document.getElementById('blends-subtitle').value = data.blends.subtitle || '';
+        document.getElementById('blends-ctaText').value = data.blends.ctaText || '';
+
+        const bContainer = document.getElementById('blends-items-container');
+        bContainer.innerHTML = '';
+        (data.blends.items || []).forEach((b, idx) => {
+          bContainer.innerHTML += `
+            <div class="item-subcard">
+              <div class="item-subcard-title">Blend #${idx + 1}: ${b.name || ''}</div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Blend Name</label>
+                  <input type="text" class="blend-item-name" data-idx="${idx}" value="${b.name || ''}">
+                </div>
+                <div class="form-group">
+                  <label>Badge Pill Text</label>
+                  <input type="text" class="blend-item-badge" data-idx="${idx}" value="${b.badge || ''}">
+                </div>
+                <div class="form-group">
+                  <label>Price in Rupees (₹)</label>
+                  <input type="text" class="blend-item-price" data-idx="${idx}" value="${b.price || ''}">
+                </div>
+                <div class="form-group">
+                  <label>Button Text</label>
+                  <input type="text" class="blend-item-btn" data-idx="${idx}" value="${b.btnText || ''}">
+                </div>
+                <div class="form-group col-span-2">
+                  <label>Flavor Notes Description</label>
+                  <textarea class="blend-item-notes" data-idx="${idx}">${b.notes || ''}</textarea>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Create Your Blend
+      if (data.createBlend) {
+        document.getElementById('create-title').value = data.createBlend.title || '';
+        document.getElementById('create-subtitle').value = data.createBlend.subtitle || '';
+        document.getElementById('create-scriptNote').value = data.createBlend.scriptNote || '';
+        document.getElementById('create-bottomNote').value = data.createBlend.bottomNote || '';
+        document.getElementById('create-ctaText').value = data.createBlend.ctaText || '';
+
+        const sContainer = document.getElementById('create-steps-container');
+        sContainer.innerHTML = '';
+        (data.createBlend.steps || []).forEach((step, idx) => {
+          sContainer.innerHTML += `
+            <div class="item-subcard">
+              <div class="item-subcard-title">Step ${step.num || (idx + 1)}</div>
+              <div class="form-grid">
+                <div class="form-group col-span-2">
+                  <label>Step Title</label>
+                  <input type="text" class="step-item-title" data-idx="${idx}" value="${step.title || ''}">
+                </div>
+                <div class="form-group col-span-2">
+                  <label>Step Description</label>
+                  <textarea class="step-item-desc" data-idx="${idx}">${step.desc || ''}</textarea>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Footer
+      if (data.footer) {
+        document.getElementById('footer-leftQuote').value = data.footer.leftQuote || '';
+        document.getElementById('footer-centerBrand').value = data.footer.centerBrand || '';
+        document.getElementById('footer-copyright').value = data.footer.copyright || '';
+      }
+
+      // Settings
+      if (data.settings) {
+        document.getElementById('settings-scrollSpeed').value = data.settings.scrollSpeed || 0.15;
+        document.getElementById('settings-cardBlur').value = data.settings.cardBlur || 16;
+      }
+    }
+
+    // Collect Data from Form
+    function collectFormData() {
+      const data = JSON.parse(JSON.stringify(siteData));
+
+      // WhatsApp
+      data.whatsapp = data.whatsapp || {};
+      data.whatsapp.phoneNumber = document.getElementById('wa-phoneNumber').value;
+      data.whatsapp.catalogueUrl = document.getElementById('wa-catalogueUrl').value;
+      data.whatsapp.greetingTemplate = document.getElementById('wa-greetingTemplate').value;
+
+      // Contact, Store & Social Media
+      data.contact = data.contact || {};
+      data.contact.storeAddress = document.getElementById('contact-storeAddress').value;
+      data.contact.timing = document.getElementById('contact-timing').value;
+      data.contact.phone = document.getElementById('contact-phone').value;
+      data.contact.mapsUrl = document.getElementById('contact-mapsUrl').value;
+      data.contact.instagramUrl = document.getElementById('contact-instagramUrl').value;
+      data.contact.instagramHandle = document.getElementById('contact-instagramHandle').value;
+      data.contact.quickChatText = document.getElementById('contact-quickChatText').value;
+      data.contact.catalogBubbleText = document.getElementById('contact-catalogBubbleText').value;
+      data.contact.servingNote = document.getElementById('contact-servingNote').value;
+
+      // Brand
+      data.brand = data.brand || {};
+      data.brand.name = document.getElementById('brand-name').value;
+      data.brand.tagline = document.getElementById('brand-tagline').value;
+      data.brand.sideLeft = document.getElementById('brand-sideLeft').value;
+      data.brand.sideRight = document.getElementById('brand-sideRight').value;
+      data.brand.headerCtaText = document.getElementById('brand-headerCtaText').value;
+
+      // Hero
+      data.hero = data.hero || {};
+      data.hero.eyebrow = document.getElementById('hero-eyebrow').value;
+      data.hero.titleLine1 = document.getElementById('hero-titleLine1').value;
+      data.hero.titleLine2 = document.getElementById('hero-titleLine2').value;
+      data.hero.tagline = document.getElementById('hero-tagline').value;
+      data.hero.primaryCtaText = document.getElementById('hero-primaryCtaText').value;
+      data.hero.secondaryCtaText = document.getElementById('hero-secondaryCtaText').value;
+      data.hero.sideNote = document.getElementById('hero-sideNote').value;
+      data.hero.showcaseBadge = document.getElementById('hero-showcaseBadge').value;
+      data.hero.showcaseStat = document.getElementById('hero-showcaseStat').value;
+      data.hero.showcaseDesc = document.getElementById('hero-showcaseDesc').value;
+
+      // Benefits
+      data.benefits = data.benefits || {};
+      data.benefits.title = document.getElementById('benefits-title').value;
+      data.benefits.titleItalic = document.getElementById('benefits-titleItalic').value;
+      data.benefits.intro = document.getElementById('benefits-intro').value;
+      data.benefits.scriptNote = document.getElementById('benefits-scriptNote').value;
+      document.querySelectorAll('.benefit-item-title').forEach(el => {
+        const idx = el.dataset.idx;
+        if (data.benefits.items[idx]) data.benefits.items[idx].title = el.value;
+      });
+      document.querySelectorAll('.benefit-item-desc').forEach(el => {
+        const idx = el.dataset.idx;
+        if (data.benefits.items[idx]) data.benefits.items[idx].desc = el.value;
+      });
+
+      // Collection
+      data.collection = data.collection || {};
+      data.collection.watermark = document.getElementById('col-watermark').value;
+      data.collection.tag = document.getElementById('col-tag').value;
+      data.collection.title = document.getElementById('col-title').value;
+      data.collection.price = document.getElementById('col-price').value;
+      data.collection.ctaText = document.getElementById('col-ctaText').value;
+      data.collection.pouchBrand = document.getElementById('col-pouchBrand').value;
+      data.collection.pouchSubtitle = document.getElementById('col-pouchSubtitle').value;
+      data.collection.pouchWindow = document.getElementById('col-pouchWindow').value;
+      data.collection.pouchFooter = document.getElementById('col-pouchFooter').value;
+      data.collection.asideTitle = document.getElementById('col-asideTitle').value;
+      data.collection.asideDesc = document.getElementById('col-asideDesc').value;
+      data.collection.asideTag = document.getElementById('col-asideTag').value;
+
+      // Blends
+      data.blends = data.blends || {};
+      data.blends.title = document.getElementById('blends-title').value;
+      data.blends.subtitle = document.getElementById('blends-subtitle').value;
+      data.blends.ctaText = document.getElementById('blends-ctaText').value;
+      document.querySelectorAll('.blend-item-name').forEach(el => {
+        const idx = el.dataset.idx;
+        if (data.blends.items[idx]) data.blends.items[idx].name = el.value;
+      });
+      document.querySelectorAll('.blend-item-badge').forEach(el => {
+        const idx = el.dataset.idx;
+        if (data.blends.items[idx]) data.blends.items[idx].badge = el.value;
+      });
+      document.querySelectorAll('.blend-item-price').forEach(el => {
+        const idx = el.dataset.idx;
+        if (data.blends.items[idx]) data.blends.items[idx].price = el.value;
+      });
+      document.querySelectorAll('.blend-item-btn').forEach(el => {
+        const idx = el.dataset.idx;
+        if (data.blends.items[idx]) data.blends.items[idx].btnText = el.value;
+      });
+      document.querySelectorAll('.blend-item-notes').forEach(el => {
+        const idx = el.dataset.idx;
+        if (data.blends.items[idx]) data.blends.items[idx].notes = el.value;
+      });
+
+      // Create Your Blend
+      data.createBlend = data.createBlend || {};
+      data.createBlend.title = document.getElementById('create-title').value;
+      data.createBlend.subtitle = document.getElementById('create-subtitle').value;
+      data.createBlend.scriptNote = document.getElementById('create-scriptNote').value;
+      data.createBlend.bottomNote = document.getElementById('create-bottomNote').value;
+      data.createBlend.ctaText = document.getElementById('create-ctaText').value;
+      document.querySelectorAll('.step-item-title').forEach(el => {
+        const idx = el.dataset.idx;
+        if (data.createBlend.steps[idx]) data.createBlend.steps[idx].title = el.value;
+      });
+      document.querySelectorAll('.step-item-desc').forEach(el => {
+        const idx = el.dataset.idx;
+        if (data.createBlend.steps[idx]) data.createBlend.steps[idx].desc = el.value;
+      });
+
+      // Footer
+      data.footer = data.footer || {};
+      data.footer.leftQuote = document.getElementById('footer-leftQuote').value;
+      data.footer.centerBrand = document.getElementById('footer-centerBrand').value;
+      data.footer.copyright = document.getElementById('footer-copyright').value;
+
+      // Settings
+      data.settings = data.settings || {};
+      data.settings.scrollSpeed = parseFloat(document.getElementById('settings-scrollSpeed').value) || 0.15;
+      data.settings.cardBlur = parseInt(document.getElementById('settings-cardBlur').value, 10) || 16;
+
+      return data;
+    }
+
+    // Save button
+    document.getElementById('btn-save').addEventListener('click', async () => {
+      const updated = collectFormData();
+      try {
+        const res = await fetch('/api/content', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updated)
+        });
+        const result = await res.json();
+        if (result.success) {
+          siteData = updated;
+          showToast('✅ WhatsApp & Rupee settings saved! Visit live site.');
+        } else {
+          showToast('❌ Failed to save: ' + (result.error || 'Server error'));
+        }
+      } catch (e) {
+        console.error(e);
+        showToast('❌ Network error while saving');
+      }
+    });
+
+    // Reset button
+    document.getElementById('btn-reset').addEventListener('click', () => {
+      if (confirm('Reload latest saved content and discard unsaved edits?')) {
+        loadData();
+        showToast('🔄 Reloaded saved content');
+      }
+    });
+
+    // Initial load
+    loadData();
+  </script>
+</body>
+</html>

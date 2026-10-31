@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gyani Tea — Pure Tea, Natural Rituals</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================
+       DESIGN SYSTEM & RESET
+       ========================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary-dark: #143527;      /* Deep Tea Green */
+      --primary-sage: #8FA89B;      /* Light Sage */
+      --accent-terracotta: #C86C3E; /* Warm Amber / Terracotta */
+      --accent-gold: #D4A373;
+      --text-main: #1C2B24;
+      --text-muted: #5C6E66;
+      --text-light: #8E9E96;
+      --border-color: rgba(20, 53, 39, 0.12);
+      
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-script: 'Caveat', cursive;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+
+      --container-max: 1200px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-main);
+      background-color: #ffffff; /* Clean neutral background as requested */
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    /* Common Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.6rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      text-transform: capitalize;
+    }
+
+    .btn-terracotta {
+      background-color: var(--accent-terracotta);
+      color: #ffffff;
+    }
+    .btn-terracotta:hover {
+      background-color: #b15d32;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(200, 108, 62, 0.25);
+    }
+
+    .btn-dark {
+      background-color: var(--primary-dark);
+      color: #ffffff;
+    }
+    .btn-dark:hover {
+      background-color: #0b1f16;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(20, 53, 39, 0.25);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border-color);
+      color: var(--primary-dark);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      border-color: var(--primary-dark);
+      background-color: var(--primary-dark);
+      color: #ffffff;
+    }
+
+    /* ==========================================================
+       HEADER & NAVIGATION
+       ========================================================== */
+    .header {
+      padding: 1.5rem 0;
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-main);
+      letter-spacing: 0.02em;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-terracotta);
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: 0.16em;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+    }
+
+    .brand-logo svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--primary-dark);
+    }
+
+    /* ==========================================================
+       HERO SECTION
+       ========================================================== */
+    .hero-section {
+      padding: 4rem 0 3.5rem;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      align-items: center;
+      gap: 3.5rem;
+    }
+
+    .hero-left-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .hero-title {
+      font-size: clamp(3.8rem, 8vw, 6.2rem);
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.04em;
+      color: var(--primary-dark);
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-tagline {
+      font-size: 1.18rem;
+      color: var(--text-muted);
+      max-width: 380px;
+      margin-bottom: 2.2rem;
+      line-height: 1.45;
+    }
+
+    .hero-imagery {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .hero-img-card {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+    }
+
+    .hero-img-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .hero-img-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .hero-badge-note {
+      position: absolute;
+      right: -10px;
+      top: -20px;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      writing-mode: vertical-rl;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .hero-side-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-top: 2rem;
+    }
+
+    /* ==========================================================
+       NATURAL BENEFITS SECTION
+       ========================================================== */
+    .benefits-section {
+      padding: 4.5rem 0;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .benefits-img-box {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    .benefits-img-box img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+    }
+
+    .benefits-header {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .benefits-title {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 400;
+      color: var(--primary-dark);
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+    }
+
+    .benefits-title em {
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .benefits-intro {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      max-width: 480px;
+    }
+
+    .script-note {
+      font-family: var(--font-script);
+      font-size: 1.7rem;
+      color: var(--text-muted);
+      line-height: 1.1;
+    }
+
+    .benefits-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .benefit-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .benefit-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.1rem;
+      color: var(--primary-dark);
+    }
+
+    .benefit-item h4 {
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .benefit-item p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================
+       ORGANIC / LOOSE LEAF HERO CARD SECTION
+       ========================================================== */
+    .loose-leaf-section {
+      padding: 5rem 0;
+      position: relative;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .giant-watermark {
+      font-size: clamp(4.5rem, 15vw, 12rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: rgba(143, 168, 155, 0.22);
+      line-height: 0.8;
+      text-transform: uppercase;
+      user-select: none;
+      margin-bottom: -2.8rem;
+    }
+
+    .loose-leaf-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      align-items: center;
+      gap: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .product-hero-info {
+      text-align: left;
+    }
+
+    .product-hero-info h3 {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: var(--primary-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .product-hero-info .caps-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      font-weight: 700;
+      color: var(--text-light);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .product-price {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 1.4rem;
+    }
+
+    .product-center-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mockup-pouch {
+      width: 250px;
+      height: 310px;
+      background: #F3F5F4;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 1rem 1rem;
+      position: relative;
+      box-shadow: 0 15px 35px rgba(20, 53, 39, 0.08);
+    }
+
+    .mockup-pouch::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      width: 70%;
+      height: 3px;
+      background: rgba(20, 53, 39, 0.1);
+      border-radius: 4px;
+    }
+
+    .pouch-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .pouch-badge svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--primary-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .pouch-brand {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      color: var(--primary-dark);
+    }
+
+    .pouch-sub {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    

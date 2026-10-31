@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const handleContent = require('./api/content');
 
 const PORT = 3000;
 const ALT_PORT = 8080;
@@ -36,6 +37,10 @@ function handleRequest(req, res) {
 
   // API Endpoints
   if (reqUrl === '/api/content') {
+<<<<<<< HEAD
+    handleContent(req, res);
+    return;
+=======
     if (req.method === 'GET') {
       fs.readFile(CONTENT_FILE, 'utf8', (err, data) => {
         if (err) {
@@ -81,6 +86,7 @@ function handleRequest(req, res) {
       });
       return;
     }
+>>>>>>> 7157eee6c21f3f4eeccadd62a128e2319adf2446
   }
 
   // Routing shortcuts
