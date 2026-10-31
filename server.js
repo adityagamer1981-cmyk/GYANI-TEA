@@ -83,7 +83,6 @@ function handleRequest(req, res) {
       });
       return;
     }
->>>>>>> 7157eee6c21f3f4eeccadd62a128e2319adf2446
   }
 
   // Routing shortcuts
