@@ -36,11 +36,10 @@ function handleRequest(req, res) {
   }
 
   // API Endpoints
-  if (reqUrl === '/api/content') {
-<<<<<<< HEAD
+  if (reqUrl === '/api/content')
     handleContent(req, res);
     return;
-    if (req.method === 'GET') {
+    if (req.method 'GET') {
       fs.readFile(CONTENT_FILE, 'utf8', (err, data) => {
         if (err) {
           res.writeHead(500, { 'Content-Type': 'application/json' });
