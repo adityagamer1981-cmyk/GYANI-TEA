@@ -117,8 +117,14 @@ function handleRequest(req, res) {
     }
 
     res.writeHead(200, headers);
-    fs.createReadStream(filePath).pipe(res);
-  });
+    fs.readFile(filePath, (err, data) => {
+    if (err) {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        return res.end('404 Not Found');
+    }
+    res.writeHead(200, headers);
+    res.end(data);
+});
 
 }
   module.exports = handleRequest;
