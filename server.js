@@ -96,7 +96,7 @@ function handleRequest(req, res) {
   const safePath = path.normalize(reqUrl).replace(/^(\.\.[\/\\])+/, '');
   const filePath = path.join(ROOT, safePath);
 
-  fs.stat(filePath, (err, stats) => {
+  fs.statfilePath, (err, stats) => {
     if (err || !stats.isFile()) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('404 Not Found');
