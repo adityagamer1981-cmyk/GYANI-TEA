@@ -85,7 +85,6 @@ function handleRequest(req, res) {
       });
       return;
     }
-  }
   // Routing shortcuts
   if (reqUrl === '/' || reqUrl === '') {
     reqUrl = '/index.html';
@@ -121,7 +120,8 @@ function handleRequest(req, res) {
     fs.createReadStream(filePath).pipe(res);
   });
 
-function startServer(port) {
+}
+  function startServer(port) {
   const server = http.createServer(handleRequest);
   server.on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
