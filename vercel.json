@@ -1,10 +1,4 @@
 {
-  "builds": [
-    {
-      "src": "api/content.js",
-      "use": "@vercel/node"
-    }
-  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
