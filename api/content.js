@@ -143,4 +143,3 @@ function handleContent(req, res) {
 }
 
 module.exports = handleContent;
-module.exports.default = handleContent;
