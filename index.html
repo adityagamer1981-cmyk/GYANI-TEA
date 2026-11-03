@@ -1917,8 +1917,8 @@ Delhi - 110096</div>
       let lastDrawnFrame = -1;
 
       function getFramePath(idx) {
-        const num = String(idx + 1).padStart(4, '0');
-        return `frames/frame_${num}_result.webp`;
+        const num = String(idx + 1).padStart(6, '0');
+        return `frames/frame_${num}.png`;
       }
 
       function resizeCanvas() {
@@ -2038,7 +2038,7 @@ Delhi - 110096</div>
         const drawY = (h - drawH) / 2;
 
         ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
+        ctx.imageSmoothingQuality = 'medium';
         ctx.drawImage(img, drawX, drawY, drawW, drawH);
 
         ctx.restore();
