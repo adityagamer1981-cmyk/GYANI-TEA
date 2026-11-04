@@ -386,12 +386,140 @@
       color: #25D366;
       padding: 0.3rem 0.8rem;
       border-radius: var(--radius-pill);
-      font-size: 0.75rem;
-      font-weight: 700;
+    /* Login Screen Overlay */
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 18, 13, 0.96);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      padding: 1.5rem;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .login-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .login-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem 2.2rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(229, 179, 130, 0.15);
+      text-align: center;
+      animation: loginCardPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes loginCardPop {
+      0% { transform: scale(0.94) translateY(12px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    .login-logo-badge {
+      width: 54px;
+      height: 54px;
+      background: rgba(229, 179, 130, 0.12);
+      border: 1px solid rgba(229, 179, 130, 0.35);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .login-logo-badge svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--accent-gold);
+    }
+
+    .login-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.4rem;
+    }
+
+    .login-subtitle {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.5;
+    }
+
+    .login-error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+      font-size: 0.82rem;
+      padding: 0.7rem 0.9rem;
+      border-radius: 8px;
+      margin-bottom: 1.2rem;
+      text-align: left;
+      line-height: 1.4;
+    }
+
+    .login-footer {
+      margin-top: 1.6rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(212, 163, 115, 0.12);
+    }
+
+    .security-badge {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
     }
   </style>
 </head>
 <body>
+
+  <!-- Login Screen Overlay -->
+  <div id="login-overlay" class="login-overlay">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo-badge">
+          <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>
+        </div>
+        <h2 class="login-title">Gyani Tea Admin</h2>
+        <p class="login-subtitle">Enter administrator password to access the website management portal.</p>
+      </div>
+
+      <form id="login-form" onsubmit="event.preventDefault(); handleLogin();">
+        <div id="login-error" class="login-error" style="display: none;"></div>
+
+        <div class="input-group" style="position: relative; text-align: left; margin-bottom: 1.2rem;">
+          <label for="admin-password-input" style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Admin Password</label>
+          <div style="position: relative; display: flex; align-items: center;">
+            <input type="password" id="admin-password-input" class="input-field" placeholder="Enter secure password" autocomplete="current-password" required style="padding-right: 2.8rem; width: 100%;">
+            <button type="button" id="btn-toggle-pwd" style="position: absolute; right: 0.8rem; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.1rem; padding: 0.2rem;" aria-label="Toggle password visibility">👁️</button>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-login-submit" class="btn btn-save" style="width: 100%; justify-content: center; padding: 0.85rem; font-size: 0.95rem;">
+          Unlock Dashboard →
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <span class="security-badge">🔒 End-to-End Cryptographically Signed Session</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Sidebar -->
   <aside class="admin-sidebar">
@@ -420,6 +548,9 @@
       <a href="/" target="_blank" class="btn btn-view" style="width: 100%; justify-content: center;">
         👁️ View Live Website
       </a>
+      <button id="btn-logout" class="btn btn-danger" style="width: 100%; justify-content: center; background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);">
+        🔒 Sign Out
+      </button>
     </div>
   </aside>
 
@@ -1205,25 +1336,152 @@
       return data;
     }
 
-    // Save button
+    /* ==========================================================================
+       AUTHENTICATION & SESSION MANAGEMENT
+       ========================================================================== */
+    const TOKEN_KEY = 'gyani_admin_token';
+    const pwdInput = document.getElementById('admin-password-input');
+    const btnTogglePwd = document.getElementById('btn-toggle-pwd');
+    const loginOverlay = document.getElementById('login-overlay');
+    const loginError = document.getElementById('login-error');
+    const loginSubmitBtn = document.getElementById('btn-login-submit');
+
+    function getStoredToken() {
+      return sessionStorage.getItem(TOKEN_KEY) || '';
+    }
+
+    function setStoredToken(token) {
+      if (token) {
+        sessionStorage.setItem(TOKEN_KEY, token);
+      } else {
+        sessionStorage.removeItem(TOKEN_KEY);
+      }
+    }
+
+    function showLoginOverlay(msg) {
+      loginOverlay.classList.remove('hidden');
+      if (msg) {
+        loginError.textContent = msg;
+        loginError.style.display = 'block';
+      } else {
+        loginError.style.display = 'none';
+      }
+      setTimeout(() => pwdInput && pwdInput.focus(), 120);
+    }
+
+    function hideLoginOverlay() {
+      loginOverlay.classList.add('hidden');
+      loginError.style.display = 'none';
+    }
+
+    // Toggle password visibility
+    if (btnTogglePwd && pwdInput) {
+      btnTogglePwd.addEventListener('click', () => {
+        if (pwdInput.type === 'password') {
+          pwdInput.type = 'text';
+          btnTogglePwd.textContent = '🙈';
+        } else {
+          pwdInput.type = 'password';
+          btnTogglePwd.textContent = '👁️';
+        }
+      });
+    }
+
+    // Handle Login submission
+    async function handleLogin() {
+      const password = pwdInput.value;
+      if (!password) return;
+
+      loginError.style.display = 'none';
+      loginSubmitBtn.disabled = true;
+      loginSubmitBtn.textContent = 'Verifying...';
+
+      try {
+        const res = await fetch('/api/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success && data.token) {
+          setStoredToken(data.token);
+          pwdInput.value = '';
+          hideLoginOverlay();
+          showToast('✅ Session authenticated successfully');
+          loadData();
+        } else {
+          loginError.textContent = data.error || 'Authentication failed. Please try again.';
+          loginError.style.display = 'block';
+          if (res.status === 429) {
+            pwdInput.disabled = true;
+            setTimeout(() => { pwdInput.disabled = false; }, 10000);
+          }
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+        loginError.textContent = 'Network error: Unable to reach authentication server.';
+        loginError.style.display = 'block';
+      } finally {
+        loginSubmitBtn.disabled = false;
+        loginSubmitBtn.textContent = 'Unlock Dashboard →';
+      }
+    }
+
+    // Sign out button
+    document.getElementById('btn-logout').addEventListener('click', () => {
+      if (confirm('Are you sure you want to sign out of the Admin Panel?')) {
+        setStoredToken('');
+        showLoginOverlay('You have been signed out.');
+        showToast('🔒 Signed out securely');
+      }
+    });
+
+    // Save button with server-side authentication
     document.getElementById('btn-save').addEventListener('click', async () => {
+      const token = getStoredToken();
+      if (!token) {
+        showLoginOverlay('Session expired. Please log in to save your changes.');
+        return;
+      }
+
       const updated = collectFormData();
+      const saveBtn = document.getElementById('btn-save');
+      const originalText = saveBtn.innerHTML;
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '💾 Saving...';
+
       try {
         const res = await fetch('/api/content', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
           body: JSON.stringify(updated)
         });
+
         const result = await res.json();
+
+        if (res.status === 401) {
+          // Token expired: prompt re-login without wiping form edits!
+          setStoredToken('');
+          showLoginOverlay('Your session expired. Please re-enter password to save (your edits are preserved).');
+          return;
+        }
+
         if (result.success) {
           siteData = updated;
-          showToast('✅ WhatsApp & Rupee settings saved! Visit live site.');
+          showToast('✅ Website content and WhatsApp settings saved!');
         } else {
           showToast('❌ Failed to save: ' + (result.error || 'Server error'));
         }
       } catch (e) {
         console.error(e);
         showToast('❌ Network error while saving');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = originalText;
       }
     });
 
@@ -1235,8 +1493,32 @@
       }
     });
 
-    // Initial load
-    loadData();
+    // Initial Auth Check & Data Load
+    async function checkAuthAndInit() {
+      const token = getStoredToken();
+      if (!token) {
+        showLoginOverlay();
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/auth', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (res.ok) {
+          hideLoginOverlay();
+          loadData();
+        } else {
+          setStoredToken('');
+          showLoginOverlay('Session expired. Please log in again.');
+        }
+      } catch (err) {
+        // If offline or network issue, present login screen
+        showLoginOverlay();
+      }
+    }
+
+    checkAuthAndInit();
   </script>
 </body>
 </html>
