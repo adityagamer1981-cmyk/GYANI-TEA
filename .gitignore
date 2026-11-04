@@ -1,1 +1,4 @@
 gyani_tea_frames_30fps.zip
+.env
+.env*.local
+node_modules
