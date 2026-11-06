@@ -2033,7 +2033,7 @@ Delhi - 110096</div>
         if (screenAspect >= 1.0) {
           scale = Math.max(w / imgW, h / imgH);
         } else {
-          scale = Math.max(w / imgW, h / imgH);
+          scale = Math.min(w / imgW, h / imgH);
         }
 
         const drawW = imgW * scale;
